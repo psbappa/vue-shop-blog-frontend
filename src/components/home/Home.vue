@@ -60,8 +60,8 @@
     name: 'Home',
     data() {
         return {
-            greet: 'Welcome',
-            name: 'today!',
+            greet: 'this',
+            name: 'js!',
             directiveText: 'Horray',
             bold: 'This is bold text',
             hack: `<a href="#" onclick="alert('You have been haked')">Win a prize</a>`,
