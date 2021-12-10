@@ -1,102 +1,43 @@
 <template>
     <div class="home">
-        <div class="my-name">{{greet}} {{name}}</div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
 
-        <div class="grid-container">
-            <div class="grid-item">1</div>
-            <div class="grid-item">2</div>
-            <div class="grid-item">3</div>
-            <div class="grid-item">4</div>
-            <div class="grid-item">5</div>
-            <div class="grid-item">6</div>
-            <div class="grid-item">7</div>
-            <div class="grid-item">8</div>
-            <div class="grid-item">9</div>
-          </div>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/about">About</a>
+                        </li>
 
-        <!-- Binding text -->
-        <div v-text="directiveText"></div>
-        <!-- <div v-text="name">OverRide</div> -->          <!-- Gets error as v-text will override element children -->
-
-        <!-- Binding Html -->
-        <div v-html="bold"></div>
-        <div v-html="hack"></div>
-
-        <!-- Binding attributes -->
-        <div v-bind:id="bindId">Heading</div>
-        <button v-bind:disabled="isDisabled">Yes it is disabled</button>
-
-        <!-- Binding classes -->
-        <h2 class="underline">This is class binding</h2>
-        <h2 class="underline" v-bind:class="status">Status with static underline class and status bind class</h2>
-
-        <!-- Logical and operator to conditionnaly apply the promoted class only isPromoted is true -->
-        <h2 v-bind:class="isPromoted && 'promotedMovie'">Promoted Movies</h2>
-        <h2 v-bind:class="isSoldOut ? 'sold-out-movie' : 'new-movie'">Soldout? Movie</h2>
-        
-        <!-- Bind classes uses arrays or objects -->
-        <!-- Bind using array -->
-        <h2 v-bind:class="['new-movie', 'promotedMovie']">Newly Prometed Movie</h2>
-        <h2 v-bind:class="[isPromoted &&  'promotedMovie', isSoldOut ? 'sold-out-movie' : 'new']">Array conditional movie - isPromoted and isSoldOut Movie</h2>
-
-        <!-- Bind using Object -->
-        <h2 v-bind:class="{
-            promotedMovie: isPromoted,
-            new: !isSoldOut,
-            'sold-out-movie': isSoldOut
-        }">Object conditional movie - isPromoted and isSoldOut Movie</h2>
-
-        <!-- Bind Inline styles using Object syntax-->
-        <h2 v-bind:style="{
-            color: highlightColor
-        }">Object conditional movie</h2>
-
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            </nav>
+        <Test />
     </div>
-  </template>
-  
-  <script>
-      
-  export default {
+</template>
+
+<script>
+import Test from '../test/Test.vue'
+
+export default {
     name: 'Home',
-    data() {
-        return {
-            greet: 'this',
-            name: 'js!',
-            directiveText: 'Horray',
-            bold: 'This is bold text',
-            hack: `<a href="#" onclick="alert('You have been haked')">Win a prize</a>`,
-            bindId: 'heading',
-            isDisabled: true,
-            status: 'danger',
-            isPromoted: true,
-            isSoldOut: true
-        }
+    components: {
+        Test
     }
-  }
-  </script>
-  
-  
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
-  <style scoped>
-
-  .underline {
-      text-decoration: underline;
-  }
-
-  .promotedMovie {
-      font-style: italic;
-  }
-
-  .new-movie {
-      color: olivedrab;
-  }
-
-  .sold-out-movie {
-      color: red;
-  }
-
-  .highlightColor {
-      color: orange;
-  }
-  </style>
-  
+}
+</script>
