@@ -26,18 +26,40 @@
                     </form>
                 </div>
             </div>
-            </nav>
-        <Test />
+        </nav>
+        <h1>Home title - {{ backgroundColor }}</h1>
+        <div class="container1">
+            <div class="row">
+                <div class="col-sm-6">
+                    <Test @changeBackgroundColor="updatebackgroundColor($event)" appname="Passed from parent to child!" />
+                </div>
+                <div class="col-sm-6">
+                    <Test1 />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Test from '../test/Test.vue'
+import Test1 from '../test/Test1.vue'
 
 export default {
     name: 'Home',
     components: {
-        Test
+        Test,
+        Test1
+    },
+    data() {
+        return {
+            backgroundColor: 'default'
+        }
+    },
+    methods: {
+        updatebackgroundColor(backgroundColor) {
+            this.backgroundColor = backgroundColor
+        }
     }
 }
 </script>
