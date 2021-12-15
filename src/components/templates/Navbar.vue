@@ -1,48 +1,253 @@
 <template>
-    <div class="navbar-bar">
-      <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">NavBar</b-navbar-brand>
-    
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-    
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item href="#">Link</b-nav-item>
-            <b-nav-item href="#" disabled>Disabled</b-nav-item>
-          </b-navbar-nav>
-    
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-            </b-nav-form>
-    
-            <b-nav-item-dropdown text="Lang" right>
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
-    
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template #button-content>
-                <em>User</em>
-              </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
+    <div class="navbar">
+        <header>
+            <div class="logo">Logo</div>
+            <i class="material-icons">menu</i>
+            <nav>
+                <div>
+                    <a href="/home">Home</a>
+                </div>
+                <div>
+                    <a href="/home">About Us</a>
+                </div>
+                <div>
+                    <a href="/home">Our Projects</a>
+                    <div>
+                        <a href="/home">Project 1</a>
+                        <a href="/home">Project 2</a>
+                    </div>
+                </div>
+                <div>
+                    <a href="/home">Forum</a>
+                </div>
+                <div>
+                    <a href="/home">Contact Us</a>
+                </div>
+                <div>
+                    <a href="/home">More</a>
+                    <div>
+                        <a href="/home">Link 1</a>
+                        <a href="/home">Link 2</a>
+                        <a href="/home">Link 3</a>
+                        <a href="/home">Link 4</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="black"></div>
+        </header>
     </div>
-  </template>
-  
-  <script>
-  export default {
-  name: 'Navbar'
-}
-  </script>
+</template>
 
-  
+<script>
+    export default {
+        name: 'Navbar'
+    }
+</script>
+
+<style scoped>
+/* For header content template */
+* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #ebebeb;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    height: 50px;
+    background-color: #f44355;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+header > .logo {
+    float: left;
+    color: #6d955c;
+    font-size: 28px;
+    line-height: 50px;
+    padding: 0 20px;
+    background-color: #212121;
+}
+
+header > nav {
+    float: right;
+}
+
+header > nav > div {
+    float: left;
+    height: 100%;
+    position: relative;
+}
+
+header > nav > div > a {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 50px;
+    padding: 0 15px;
+    color: #fbfbfb;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+}
+
+header > nav > div:hover > a {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+header > nav > div > div {
+    display: none;
+    overflow: hidden;
+    background-color: white;
+    min-width: 200%;
+    position: absolute;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    padding: 10px;
+}
+
+header > nav > div:not(:first-of-type):not(:last-of-type) > div {
+    left: -50%;
+    border-radius: 0 0 3px 3px;
+}
+
+header > nav > div:first-of-type > div {
+    left: 0;
+    border-radius: 0 0 3px 0;
+}
+
+header > nav > div:last-of-type > div {
+    right: 0;
+    border-radius: 0 0 0 3px;
+    min-width: 400%;
+}
+
+header > nav > div:hover > div {
+    display: block;
+    z-index: 1;
+}
+
+header > nav > div > div > a {
+    display: block;
+    float: left;
+    padding: 8px 10px;
+    width: 46%;
+    margin: 2%;
+    text-align: center;
+    background-color: #f44355;
+    color: #fbfbfb;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+}
+
+header > nav > div > div > a:hover {
+    background-color: #212121;
+    cursor: pointer;
+}
+
+header > .material-icons {
+	display: none;
+}
+
+h1 {
+    margin-top: 10px;
+    font-weight: 100;
+}
+
+p {
+    color: #aaa;
+    font-weight: 300;
+}
+
+@media (max-width:600px) {
+    header > nav > div > div > a {
+        margin: 5px 0;
+        width: 100%;
+    }
+    header > nav > div > a > span {
+        display: none;
+    }
+}
+
+@media (max-width:715px) {
+    header > nav {
+        overflow-y: scroll;
+        background-color: white;
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 200px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        height: 100%;
+        transition: right 0.3s ease;
+        z-index: 2;
+    }
+    header > nav > div {
+        height: initial;
+        float: none;
+        position: relative;
+    }
+    header > nav > div > a {
+        color: #212121;
+        text-align: right;
+    }
+    header > nav > div > div {
+        display: block;
+        position: static;
+        min-width: 100% !important;
+        float: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 1px !important;
+    }
+    header > nav > div > div > a {
+        float: none;
+        width: 100%;
+        margin: 0;
+        text-align: right;
+        border-radius: 1px;
+        padding: 8px 20px;
+        background-color: #eee;
+        color: #777;
+    }
+    header > nav > div > div > a:hover {
+        background-color: #ccc;
+    }
+    header > .material-icons {
+        display: block;
+        color: #fbfbfb;
+        line-height: 50px;
+        float: right;
+        font-size: 32px;
+        padding: 0 15px;
+        transition: background-color 0.2s ease;
+    }
+    header > .material-icons:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    header > .material-icons:hover + nav,
+    nav:hover {
+        right: 0;
+    }
+    header .black {
+        transition: background-color 0.3s ease;
+    }
+    header > .material-icons:hover ~ .black,
+    nav:hover ~ .black {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        pointer-events: none;
+    }
+}
+</style>

@@ -5,7 +5,8 @@
                 <li class="list-group-item">
                     <button type="button" @click="onBackgroundChange">Update Title</button>
                     <div class="my-name text-success">{{greet}} {{name}}</div>
-                    <div class="props-calling">This is called from parent to child as a props - {{appname}}</div>
+                    <div class="props-calling" style="color: purple">This is called from parent to child as a props - {{title}} Likes - {{likes}}</div>
+                    <h4 v-bind="$attrs">Title - {{title}}</h4>
                 </li>
                 
                 <li class="list-group-item">
@@ -250,7 +251,15 @@
 <script>
 export default {
     name: 'Test',
-    props: ['appname'],
+    props: {
+        title: {
+            type: String,
+            likes: Number,
+            default: 'Test default title'
+        }, 
+        likes: Number,
+    },
+    inheritAttrs: false,        //to prevent default fall throught no prop attribute on root node and ${attrs} to bind according to your choice
     computed: {
         reversedItems() {
             return [...this.items].reverse()
