@@ -57,6 +57,7 @@
                     <h4>Object conditional movie color</h4>
                 </li>
 
+                <!-- Form toggling -->
                 <li class="list-group-item">
                     <div class="header">
                         <button v-if="editing" @click="doEdit(false)" class="btn btn-danger">Cancel</button>

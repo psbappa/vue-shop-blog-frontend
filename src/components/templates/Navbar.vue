@@ -5,9 +5,9 @@
             <i class="material-icons">menu</i>
             <nav>
                 <div>
-                    <a href="/home">Home</a>
+                    <a href="/home">Login</a>
                 </div>
-                <div>
+                <!-- <div>
                     <a href="/home">About Us</a>
                 </div>
                 <div>
@@ -31,7 +31,7 @@
                         <a href="/home">Link 3</a>
                         <a href="/home">Link 4</a>
                     </div>
-                </div>
+                </div> -->
             </nav>
             <div class="black"></div>
         </header>

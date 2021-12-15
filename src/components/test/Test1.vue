@@ -13,7 +13,7 @@
                     </ul>
                 </p>
                 <form @submit="login" class="login-form">
-                    <input type="text" v-model="loginFormData.username" name="uname" id="uname" placeholder="Enter user name"><br><br>
+                    <input type="text" v-model="loginFormData.username" ref="inputRef" name="uname" id="uname" placeholder="Enter user name"><br><br>
                     <input type="password" v-model="loginFormData.password" name="password" id="name" placeholder="Enter password"><br><br>
                     <button>Login</button>
                 </form>
@@ -57,11 +57,10 @@
                 </div>
             </div>
         </div>
-
         
         <!-- Change name using Computed Setter -->
         <div class="computed-setter shadow-lg p-3 mb-5 mt-4 bg-body rounded">
-            <div class="side" style="diplay: flex; float:right;">
+            <div class="side" style="display: flex; float:right;">
                 <span>Welcome - {{fullName}}</span><br>
                 <button @click="changeFullName">Change full name</button>
             </div><br><br><br>
@@ -233,6 +232,9 @@ export default {
         Modal
     },
     props: ['name', 'workName'],
+    mounted() {
+        this.$refs.inputRef.focus()
+    },
     computed: {
         fullName: {
             get() {
@@ -343,18 +345,6 @@ export default {
             activeTab: 'TabA',
             showModal: false,
         }
-    },
-    beforeCreate: function() {
-        // console.log('Before Created')
-    },
-    created: function() {
-        // console.log('Created')
-    },
-    beforeMount: function() {
-        // console.log('Before mount')
-    },
-    mounted: function() {
-        // console.log('Mount')
     }
 }
 </script>

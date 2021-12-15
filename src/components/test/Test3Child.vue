@@ -7,7 +7,7 @@
 <script>
     export default {
         name: 'Test3Child',
-        inject: ['username']
+        inject: ['username']        //provide and inject, see provide in Home i.e parent component
     }
 </script>
 
