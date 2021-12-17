@@ -4,12 +4,8 @@
         
         <h1 style="color: purple">Home title - {{ backgroundColor }}</h1>
 
-        <div class="budget-palnner-section">
-            <div class="row">
-              <div style="background-color:#e9ccaa;">
-                <BudgetPlanner />
-              </div>
-            </div>
+        <div class="budget-section">
+          <BudgetPlanner />
         </div>
 
         <div class="refs-section">
@@ -37,7 +33,7 @@
         <div class="main">
             <!-- Tests Components -->
             <hr><br>
-            <div class="container">
+            <div class="my-container">
                 <div class="row">
                     <div class="col-md-6" style="background-color: #74a7a9;">
                         <Test2 />

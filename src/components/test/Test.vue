@@ -102,6 +102,7 @@
                             </div>
 
                             <!-- List rendering -->
+                            <!-- Using Array -->
                             <div 
                                 v-for="(item, index) in items_array" 
                                 :key="item.id"
@@ -114,6 +115,7 @@
                                 {{index}}. {{item.id}}. {{item.label}}
                             </div>
                             
+                            <!-- using Objects -->
                             <div v-for="(item, key) in items_object" :key="item.id" class="bg-secondary">
                                 {{key}}. {{key.id}} {{item.label}}
                             </div>
