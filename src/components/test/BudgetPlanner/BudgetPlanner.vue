@@ -88,7 +88,7 @@
                                             <form>
                                                 <input class="form-control input-lg" type="text" id="category" placeholder="category" :value="selectedCategoryValue" readonly />
                                             </form>
-                                            <button @click="addItem" class="btn btn-primary btn-lg btn-block">Add</button>
+                                            <button @click="addItem(this.selectedExpensesdata)" class="btn btn-primary btn-lg btn-block">Add to table</button>
                                         </div>
                                     </div>
                                     <div v-if="isResultTableShow" class="col-sm-8">
@@ -101,10 +101,10 @@
                                                     <thead class="thead-light">
                                                         <th>Category</th>
                                                         <th>Expenses</th>
-                                                        <th>Edit/Del</th>
+                                                        <!-- <th>Edit/Del</th> -->
                                                     </thead>
                                                     
-                                                    <tr v-for="(item, index) in selectedExpensesdata" :key="item">
+                                                    <tr v-for="(item, index) in selectedExpensesdata" :key="index">
                                                         <td>
                                                         <input v-if="item.edit" type="text" v-model="item.category"  v-on:keyup.enter="item.edit = !item.edit">
                                                         <span v-else>{{item.category}} </span>
@@ -113,12 +113,16 @@
                                                         <input v-if="item.edit" type="text" v-model="item.expenses" v-on:keyup.enter="item.edit = !item.edit">
                                                         <span v-else>{{item.expenses}} </span>
                                                         </td>
-                                                        <td><button @click="item.edit = !item.edit" class="btn btn-info">Edit</button>
-                                                        <button @click="removeItem(index)" class="btn btn-danger">Delete</button></td>
+                                                        <!-- <td>
+                                                            <button @click="item.edit = !item.edit" class="btn btn-info">Edit</button>
+                                                            <button @click="removeItem(index)" class="btn btn-danger">Delete</button>
+                                                        </td> -->
                                                     </tr>
-                                                    <div class="alert alert-info">
-                                                        total: <strong></strong>      
-                                                    </div> 
+                                                    <tr class="alert alert-info last-row" style="border: none; background: #ad98a5">
+                                                        <td></td>
+                                                        <td>total:<strong>{{totalExpenses}}/- out of {{this.totalBudget}}/-</strong></td>
+                                                        <td></td>       
+                                                    </tr> 
                                                 </table>
                                             </div>
                                         </div>
@@ -150,8 +154,7 @@ export default {
             selectedCategoryKey: '',
             isResultTableShow: false,
             expenses: '',
-            totalBudget: '',
-            totalExpenses: '',
+            totalBudget: 5000,
             remainingBudget: '',
             defaultCategories: [
                 { key: 'travelling', value: 'Travelling', expenses: 0, edit: false },
@@ -178,20 +181,36 @@ export default {
             this.selectedCategoryValue = event.target.options[event.target.options.selectedIndex].text
             this.selectedCategoryKey = event.target.value
         },
-        addItem() {
-            var totalExpenses = 0
+        addItem(itemToAdd) {
             this.isResultTableShow = true
-            this.selectedExpensesdata.push({'category': this.selectedCategoryValue, 'expenses': this.expenses})
-            this.selectedExpensesdata.forEach(function(s){
-                if(s.expenses) {
-                    console.log('selected expenses', s.expenses)
-                    
-                    totalExpenses += s.expenses
-                }
-            })
-            console.log('Total expenses', totalExpenses)
+            console.log('Selected by user', this.selectedExpensesdata, 'Item to add', itemToAdd)
+
+            // let itemInTable = this.selectedExpensesdata.filter(item => item.key === itemToAdd.key)
+            // let isItemInTable = itemInTable.length > 0
+
+            // if(isItemInTable === false) {
+            //     console.log('no, added new')
+            //     this.selectedExpensesdata.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
+            // } else {
+            //     console.log('Yes, already exists only update exopenses')
+            //     itemInTable.expenses += itemToAdd.expenses
+            // }
+
+            this.selectedExpensesdata.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
         }
     },
+    computed: {
+        totalExpenses() {
+            let totalExpenses = 0
+            this.selectedExpensesdata.forEach(item => {
+                if(item.expenses) {
+                    totalExpenses += item.expenses
+                }
+            })
+
+            return totalExpenses;
+        }
+    }
     // watch: {
     //     selectedCategoryValue: function(newValue, oldvalue) {
     //         console.log('newValue', newValue)
@@ -239,7 +258,7 @@ input[type=submit]:hover {
 }
 
 /* Temporary have */
-/* .toggle-text {
+.toggle-text {
     display: none;
-} */
+}
 </style>
