@@ -8,6 +8,7 @@
             </div>
             <div v-if="editing" class="body-section" style="width: 100%; display: table; background: #b3946f">
                 <div style="display: table-row; height: 100px;">
+                    <!-- Left side - Add Edit Form -->
                     <div style="width: 42%; display: table-cell; padding: 1rem;">
                         <div class="form-body">
                             <form @submit.prevent="submitAddEditForm" novalidate class="budget-add-edit" action="">
@@ -69,7 +70,7 @@
                         </div>
                     </div>
 
-                    <!-- Left side -->
+                    <!-- Right side -->
                     <div class="column" style="padding: 1rem;">
                         <div v-if="selectedCategoryValue">
                             <!-- You select - {{ selectedCategoryValue }} with key: {{selectedCategoryKey}} -->
@@ -81,11 +82,11 @@
                                                 <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="totalBudget" />
                                                 <label for="floatingInput">Total Budget</label>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="expenses">
-                                                <label for="floatingInput">Expenses in {{selectedCategoryValue}}</label>
-                                            </div>
                                             <form>
+                                                <div class="form-floating mb-3">
+                                                    <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="expenses">
+                                                    <label for="floatingInput">Expenses in {{selectedCategoryValue}}</label>
+                                                </div>
                                                 <input class="form-control input-lg" type="text" id="category" placeholder="category" :value="selectedCategoryValue" readonly />
                                             </form>
                                             <button @click="addItem(this.selectedExpensesdata)" class="btn btn-primary btn-lg btn-block">Add to table</button>
@@ -94,8 +95,7 @@
                                     <div v-if="isResultTableShow" class="col-sm-8">
                                         <div class="results">
                                             <h1 class="title">Results</h1>
-                                            <span class="emoji">
-                                            </span>
+                                            <span class="emoji"></span>
                                             <div class="results-data">
                                                 <table class="table table-striped table-bordered table-sm">
                                                     <thead class="thead-light">
@@ -113,17 +113,26 @@
                                                         <input v-if="item.edit" type="text" v-model="item.expenses" v-on:keyup.enter="item.edit = !item.edit">
                                                         <span v-else>{{item.expenses}} </span>
                                                         </td>
-                                                        <!-- <td>
+                                                        <td>
                                                             <button @click="item.edit = !item.edit" class="btn btn-info">Edit</button>
                                                             <button @click="removeItem(index)" class="btn btn-danger">Delete</button>
-                                                        </td> -->
+                                                        </td>
                                                     </tr>
                                                     <tr class="alert alert-info last-row" style="border: none; background: #ad98a5">
                                                         <td></td>
-                                                        <td>total:<strong>{{totalExpenses}}/- out of {{this.totalBudget}}/-</strong></td>
+                                                        <td>total:
+                                                            <strong><span 
+                                                                :class="totalExpenses > this.totalBudget ? 'text-danger' : 'text-primary'"
+                                                                >{{totalExpenses}}/-</span></strong> 
+                                                            out of 
+                                                            <strong><span>{{this.totalBudget}}/-</span></strong></td>
                                                         <td></td>       
                                                     </tr> 
                                                 </table>
+
+                                                <div class="show-chart-btn">
+                                                    <button class="togglebutton" v-on:click="showChartSection">Show chart</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,12 +149,27 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
+            <!-- <BudgetChart :selectedTableValueData="selectedExpensesdata" /> -->
+            <BudgetBarChartjs 
+                :selectedTableValueData="selectedExpensesdata" 
+                :bar-data="ChartConfig" 
+                :chart-options="options"/>
+        </div>
     </div>
 </template>
 
 <script>
+// import BudgetChart from '../BudgetPlanner/BudgetChart.vue'
+import BudgetBarChartjs from '../BudgetPlanner/BudgetBarChartjs.vue'
+
 export default {
     name: 'BudgetPlanner',
+    components: {
+        // BudgetChart,
+        BudgetBarChartjs
+    },
     data() {
         return {
             editing: false,
@@ -153,6 +177,7 @@ export default {
             selectedCategoryValue: '',
             selectedCategoryKey: '',
             isResultTableShow: false,
+            isChartTableShow: false,
             expenses: '',
             totalBudget: 5000,
             remainingBudget: '',
@@ -162,7 +187,56 @@ export default {
                 { key: 'pocket-money', value: 'Pocket Money', expenses: 0, edit: false},
                 { key: 'room-expenses', value: 'Room Expenses', expenses: 0, edit: false},
             ],
-            selectedExpensesdata: []
+            selectedExpensesdata: [],
+            
+            // For BudgetBarChartjs Chart js data start-------
+            ChartConfig: {
+                labels: [],
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: '#3498db',
+                        borderColor: 'rgba(136,136,136,0.5)',
+                        label: "2013"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        categoryPercentage: 0.5,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            },
+            iceCream: [],
+            drawer: false
+            // For BudgetBarChartjs Chart js data End-------
         }
     },
     methods: {
@@ -175,7 +249,7 @@ export default {
         },
         updateCategory: function() {
             this.selectedCategoryValue = this.selectedCategoryValue.replace(/\s+/g, ' ')
-            console.log(this.selectedCategoryValue)
+            // console.log(this.selectedCategoryValue)
         },
         changeCategory(event) {
             this.selectedCategoryValue = event.target.options[event.target.options.selectedIndex].text
@@ -197,26 +271,33 @@ export default {
             // }
 
             this.selectedExpensesdata.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
-        }
+        },
+        removeItem(index) {
+            this.selectedExpensesdata.splice(index, 1)
+        },
+        showChartSection() {
+            this.isChartTableShow = !this.isChartTableShow
+        },
     },
     computed: {
         totalExpenses() {
-            let totalExpenses = 0
-            this.selectedExpensesdata.forEach(item => {
-                if(item.expenses) {
-                    totalExpenses += item.expenses
-                }
-            })
+            let sum = 0
+            for (let i = 0; i < this.selectedExpensesdata.length; i++){
+                sum += parseInt(this.selectedExpensesdata[i].expenses);
+            }
+            return sum;
+        }
+    },
+    watch: {
+        selectedCategoryValue: function(newValue, oldvalue) {
+            if(newValue != oldvalue) {
+                console.log('value is changed')
+            } else {
+                console.log('Nothing any changes!')
+            }
 
-            return totalExpenses;
         }
     }
-    // watch: {
-    //     selectedCategoryValue: function(newValue, oldvalue) {
-    //         console.log('newValue', newValue)
-    //         console.log('oldvalue', oldvalue)
-    //     }
-    // }
 }
 </script>
 
@@ -260,5 +341,12 @@ input[type=submit]:hover {
 /* Temporary have */
 .toggle-text {
     display: none;
+}
+
+.togglebutton{
+    padding : 0.1em;
+    background-color:#2196F3;
+    color:#FFF;
+    cursor:pointer;
 }
 </style>
