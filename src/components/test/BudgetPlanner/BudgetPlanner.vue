@@ -152,23 +152,27 @@
 
         <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
             <!-- <BudgetChart :selectedTableValueData="selectedExpensesdata" /> -->
-            <BudgetBarChartjs 
+            <!-- <BudgetBarChartjs 
                 :selectedTableValueData="selectedExpensesdata" 
                 :bar-data="ChartConfig" 
-                :chart-options="options"/>
+                :chart-options="options"/> -->
+
+            <FusionChartData />
         </div>
     </div>
 </template>
 
 <script>
 // import BudgetChart from '../BudgetPlanner/BudgetChart.vue'
-import BudgetBarChartjs from '../BudgetPlanner/BudgetBarChartjs.vue'
+// import BudgetBarChartjs from '../BudgetPlanner/BudgetBarChartjs.vue'
+import FusionChartData from '../BudgetPlanner/FusionChartData.vue'
 
 export default {
     name: 'BudgetPlanner',
     components: {
         // BudgetChart,
-        BudgetBarChartjs
+        // BudgetBarChartjs,
+        FusionChartData
     },
     data() {
         return {
