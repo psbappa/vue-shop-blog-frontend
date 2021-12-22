@@ -151,27 +151,18 @@
         </div>
 
         <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
-            <!-- <BudgetChart :selectedTableValueData="selectedExpensesdata" /> -->
-            <!-- <BudgetBarChartjs 
-                :selectedTableValueData="selectedExpensesdata" 
-                :bar-data="ChartConfig" 
-                :chart-options="options"/> -->
 
-            <FusionChartData />
+            <FusionChartData :selectedTableValueData="selectedExpensesdata" :key="selectedExpensesdata" />
         </div>
     </div>
 </template>
 
 <script>
-// import BudgetChart from '../BudgetPlanner/BudgetChart.vue'
-// import BudgetBarChartjs from '../BudgetPlanner/BudgetBarChartjs.vue'
 import FusionChartData from '../BudgetPlanner/FusionChartData.vue'
 
 export default {
     name: 'BudgetPlanner',
     components: {
-        // BudgetChart,
-        // BudgetBarChartjs,
         FusionChartData
     },
     data() {
@@ -192,55 +183,6 @@ export default {
                 { key: 'room-expenses', value: 'Room Expenses', expenses: 0, edit: false},
             ],
             selectedExpensesdata: [],
-            
-            // For BudgetBarChartjs Chart js data start-------
-            ChartConfig: {
-                labels: [],
-                datasets: [
-                    {
-                        data: [],
-                        backgroundColor: '#3498db',
-                        borderColor: 'rgba(136,136,136,0.5)',
-                        label: "2013"
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
-                    text: 'Chart.js Line Chart'
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        categoryPercentage: 0.5,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Value'
-                        }
-                    }]
-                }
-            },
-            iceCream: [],
-            drawer: false
-            // For BudgetBarChartjs Chart js data End-------
         }
     },
     methods: {
@@ -253,15 +195,15 @@ export default {
         },
         updateCategory: function() {
             this.selectedCategoryValue = this.selectedCategoryValue.replace(/\s+/g, ' ')
-            // console.log(this.selectedCategoryValue)
+            console.log(this.selectedCategoryValue)
         },
         changeCategory(event) {
             this.selectedCategoryValue = event.target.options[event.target.options.selectedIndex].text
             this.selectedCategoryKey = event.target.value
         },
-        addItem(itemToAdd) {
+        addItem() {
             this.isResultTableShow = true
-            console.log('Selected by user', this.selectedExpensesdata, 'Item to add', itemToAdd)
+            
 
             // let itemInTable = this.selectedExpensesdata.filter(item => item.key === itemToAdd.key)
             // let isItemInTable = itemInTable.length > 0
@@ -293,15 +235,18 @@ export default {
         }
     },
     watch: {
-        selectedCategoryValue: function(newValue, oldvalue) {
-            if(newValue != oldvalue) {
-                console.log('value is changed')
-            } else {
-                console.log('Nothing any changes!')
-            }
+        // selectedCategoryValue: function(newValue, oldvalue) {
+        //     if(newValue != oldvalue) {
+        //         console.log('value is changed')
+        //     } else {
+        //         console.log('Nothing any changes!')
+        //     }
 
-        }
-    }
+        // }
+    },
+    // updated: function() {
+    //     console.log('child-referred updated');
+    // }
 }
 </script>
 

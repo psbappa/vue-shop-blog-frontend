@@ -298,10 +298,10 @@ export default {
             }
         },
         movie: {
-            handler(newValue) {
-                console.log('API called -', newValue)
-            },
-            immediate: true,
+            // handler(newValue) {
+            //     console.log('API called -', newValue)
+            // },
+            // immediate: true,
         },
         movieInfo: {
             handler(newValue) {
