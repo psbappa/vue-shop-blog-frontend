@@ -8,7 +8,7 @@
           <BudgetPlanner />
         </div>
 
-        <div class="refs-section">
+        <!-- <div class="refs-section">
             <div class="row">
               <div class="column" style="background-color:#e3c7c9;">
                 <Data />
@@ -31,7 +31,6 @@
         </div>
 
         <div class="main">
-            <!-- Tests Components -->
             <hr><br>
             <div class="my-container">
                 <div class="row">
@@ -55,32 +54,32 @@
                     <Test1 :name="name" :work-name="channel" />
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import Navbar from '../templates/Navbar.vue'
-import Test from '../test/Test.vue'
-import Test1 from '../test/Test1.vue'
-import Test2 from '../test/Test2.vue'
-import HttpGetRequest from '../test/Axios/HttpGetRequest.vue'
-import HttpPostRequest from '../test/Axios/HttpPostRequest.vue'
-import LifeCycle from '../test/LifeCycle.vue'
-import Data from '../test/CompositionAPI/Data.vue'
+// import Test from '../test/Test.vue'
+// import Test1 from '../test/Test1.vue'
+// import Test2 from '../test/Test2.vue'
+// import HttpGetRequest from '../test/Axios/HttpGetRequest.vue'
+// import HttpPostRequest from '../test/Axios/HttpPostRequest.vue'
+// import LifeCycle from '../test/LifeCycle.vue'
+// import Data from '../test/CompositionAPI/Data.vue'
 import BudgetPlanner from '../test/BudgetPlanner/BudgetPlanner.vue'
 
 export default {
     name: 'Home',
     components: {
         Navbar,
-        Test,
-        Test1,
-        Test2,
-        HttpGetRequest,
-        HttpPostRequest,
-        LifeCycle,
-        Data,
+        // Test,
+        // Test1,
+        // Test2,
+        // HttpGetRequest,
+        // HttpPostRequest,
+        // LifeCycle,
+        // Data,
         BudgetPlanner
     },
     data() {

@@ -273,7 +273,7 @@ export default {
                 this.loginFormError.push('password is required')
             }
 
-            console.log(this.loginFormError)
+            // console.log(this.loginFormError)
         },
 
         getProductsTotalUsingComputedMethods() {

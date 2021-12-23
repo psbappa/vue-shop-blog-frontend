@@ -2,7 +2,8 @@
     <div id="chart-container">
         <div class="fusion-chart">
             <div class="show-test-data">
-                <!-- <span>{{selectedTableValueData}}</span> -->
+                <span>{{selectedTableValueData}}</span>
+                <span>Test - {{test}}</span>
             </div>
             <fusioncharts
                 :type="type"
@@ -54,7 +55,10 @@
 
     export default {
         name: 'FusionchartData',
-        props: ['selectedTableValueData'],
+        props: {
+            selectedTableValueData: Array, 
+            test: Array
+        },
         data: function () {
             return {
                 type: "column2d",
@@ -101,12 +105,17 @@
         },
         created: function() {
             let itemArr = this.selectedTableValueData.map(item => {
-            return {
-                label: item.category,
-                value: item.expenses,
-                }
-            });
+                return {
+                    label: item.category,
+                    value: item.expenses,
+                    }
+                });
             this.dataSource.data = itemArr
+        },
+        watch: { 
+            selectedTableValueData: function(newVal, oldVal) { // watch it
+                console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+            }
         }
          
     }

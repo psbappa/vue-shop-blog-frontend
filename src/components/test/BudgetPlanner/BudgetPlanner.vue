@@ -11,7 +11,7 @@
                     <!-- Left side - Add Edit Form -->
                     <div style="width: 42%; display: table-cell; padding: 1rem;">
                         <div class="form-body">
-                            <form @submit.prevent="submitAddEditForm" novalidate class="budget-add-edit" action="">
+                            <form @submit.prevent="submitAddEditForm" name="contact-form" novalidate class="budget-add-edit" action="">
                                 <div class="add-category" style="display: table">
                                     <!-- Add category Section -->
                                     <div class="element add-category input-section">
@@ -46,7 +46,7 @@
                                         <div class="element add-category-submit-btn">
                                             <button
                                                 v-bind:disabled="selectedCategoryValue.length == 0"
-                                                @click="updateCategory(expensesDataInTable)"
+                                                @click="editCategory(this.selectedCategoryKey, this.selectedCategoryValue)"
                                                 class="btn btn-primary me-md-2" style="height: 50px;">
                                                 Edit Category
                                             </button>
@@ -73,7 +73,7 @@
                     <!-- Right side -->
                     <div class="column" style="padding: 1rem;">
                         <div v-if="selectedCategoryValue">
-                            You select - {{ selectedCategoryValue }} with key: {{selectedCategoryKey}}
+                            <!-- You select - {{ selectedCategoryValue }} with key: {{selectedCategoryKey}} -->
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-4 col-sm-offset-1">
@@ -82,14 +82,23 @@
                                                 <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="totalBudget" />
                                                 <label for="floatingInput">Total Budget</label>
                                             </div>
-                                            <form>
+                                            <p v-if="formErrors.length" class="text-danger">
+                                                <b>Please correct the error</b>
+                                                <ul style="list-style-type:none;">
+                                                    <li v-for="e in formErrors" v-bind:key="e.id">
+                                                        {{e}}
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                            <form @submit.prevent="addItem(this.selectedCategoryKey, this.selectedCategoryValue)" method="post">
                                                 <div class="form-floating mb-3">
                                                     <input type="number" class="form-control" id="floatingInput" v-model="expenses">
                                                     <label for="floatingInput">Expenses in {{selectedCategoryValue}}</label>
                                                 </div>
                                                 <input class="form-control input-lg" type="text" id="category" placeholder="category" :value="selectedCategoryValue" readonly />
+                                            
+                                                <button class="btn btn-primary btn-lg btn-block">Add to table</button>
                                             </form>
-                                            <button @click="addItem(this.selectedCategoryKey, this.selectedCategoryValue)" class="btn btn-primary btn-lg btn-block">Add to table</button>
                                         </div>
                                     </div>
                                     <div v-if="isResultTableShow" class="col-sm-8">
@@ -114,8 +123,12 @@
                                                         <span v-else>{{item.expenses}} </span>
                                                         </td>
                                                         <td>
-                                                            <button @click="item.edit = !item.edit" class="btn btn-info">Edit</button>
-                                                            <button @click="removeItem(index)" class="btn btn-danger">Delete</button>
+                                                            <button @click="item.edit = !item.edit" class="btn btn-info">
+                                                                <i class="fas fa-edit">Edit</i>
+                                                            </button>
+                                                            <button @click="removeItem(item)" class="btn btn-danger">
+                                                                <i class="fas fa-times">Delete</i>
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                     <tr class="alert alert-info last-row" style="border: none; background: #ad98a5">
@@ -152,7 +165,7 @@
 
         <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
 
-            <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" />
+            <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" :test="[{id: 1, name: 'bappa'}, {id: 2, name: 'dey'}]" />
         </div>
     </div>
 </template>
@@ -163,7 +176,7 @@ import FusionChartData from '../BudgetPlanner/FusionChartData.vue'
 export default {
     name: 'BudgetPlanner',
     components: {
-        FusionChartData
+        FusionChartData,
     },
     data() {
         return {
@@ -171,6 +184,7 @@ export default {
             addedNewCategory: '',
             selectedCategoryValue: '',
             selectedCategoryKey: '',
+            editedcategoryValue: '',
             isResultTableShow: false,
             isChartTableShow: false,
             expenses: '',
@@ -183,7 +197,8 @@ export default {
                 { key: 'room-expenses', value: 'Room Expenses', expenses: 0, edit: false},
             ],
             expensesDataInTable: [],
-            rerenderCount: 0
+            rerenderCount: 0,
+            formErrors: [],
         }
     },
     methods: {
@@ -194,45 +209,68 @@ export default {
             this.defaultCategories.push({key: this.addedNewCategory.replace(/\s+/g, '-').toLowerCase(), value: this.addedNewCategory})
             this.addedNewCategory = ''
         },
-        updateCategory: function() {
-            this.selectedCategoryValue = this.selectedCategoryValue.replace(/\s+/g, ' ')
-            console.log('selectedCategoryValue:', this.selectedCategoryValue)
+        editCategory(key, value) {
+            let editItem = [{
+                key: key,
+                category: value.replace(/\s+/g, ' ')
+            }]
+
+            this.defaultCategories.map(item => {
+                if(item.key === editItem[0].key) {
+                    item.value = editItem[0].category
+                }
+
+                this.expensesDataInTable.map(td => {
+                    if(td.key === editItem[0].key) {
+                        td.category = editItem[0].category
+                    }
+                })
+            })
         },
         changeCategory(event) {
             this.selectedCategoryValue = event.target.options[event.target.options.selectedIndex].text
             this.selectedCategoryKey = event.target.value
         },
         addItem(key, value) {
-            let checkItem = [{
-                key,
-                category: value,
-                expenses: this.expenses
-            }]
-            this.isResultTableShow = true
-            this.rerenderCount++
-            
-            let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
-            let isItemInTable = itemInTable.length > 0
+            this.formErrors = [];
 
-            if(isItemInTable === false) {                   //item not present, please insert it
-                console.log('no, added new')
-                this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
-            } else {                                        //item already exists, update only calculation
-                this.expensesDataInTable.filter(item => {
-                    if(item.key === checkItem[0].key) {
-                        item.expenses += checkItem[0].expenses
-                    }
-                })
+            if(!this.expenses) {
+                this.formErrors.push('Enter your expenses')
+            } else {
+                let checkItem = [{
+                    key,
+                    category: value,
+                    expenses: this.expenses
+                }]
+                this.isResultTableShow = true
+                this.rerenderCount++
+                
+                let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
+                let isItemInTable = itemInTable.length > 0
 
+                if(isItemInTable === false) {                   //item not present, please insert it
+                    this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
+                } else {                                        //item already exists, update only calculation
+                    this.expensesDataInTable.filter(item => {
+                        if(item.key === checkItem[0].key) {
+                            item.expenses += checkItem[0].expenses
+                        }
+                    })
+                }
+
+                this.expenses = ''
             }
-
-            // this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
         },
-        removeItem(index) {
-            this.expensesDataInTable.splice(index, 1)
+        removeItem(selData) {
+            // this.expensesDataInTable.splice(index, 1)            //only remove from DOM
+            if (confirm('Sure to delete')) {
+                this.expensesDataInTable = this.expensesDataInTable.filter((item) => item.key != selData.key)
+            }
         },
         showChartSection() {
-            this.isChartTableShow = !this.isChartTableShow
+            if(this.expensesDataInTable.length > 0) {
+                this.isChartTableShow = !this.isChartTableShow
+            }
         },
     },
     computed: {
@@ -244,6 +282,9 @@ export default {
             return sum;
         }
     },
+    created() {
+        console.log('component updated')
+    }
 }
 </script>
 
