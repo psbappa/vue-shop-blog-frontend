@@ -3,7 +3,7 @@
         <div class="fusion-chart">
             <div class="show-test-data">
                 <span>{{selectedTableValueData}}</span>
-                <span>Test - {{test}}</span>
+                <!-- <span>Test - {{test}}</span> -->
             </div>
             <fusioncharts
                 :type="type"

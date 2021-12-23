@@ -123,7 +123,7 @@
                                                         <span v-else>{{item.expenses}} </span>
                                                         </td>
                                                         <td>
-                                                            <button @click="item.edit = !item.edit" class="btn btn-info">
+                                                            <button @click="editItem(item)" class="btn btn-info">
                                                                 <i class="fas fa-edit">Edit</i>
                                                             </button>
                                                             <button @click="removeItem(item)" class="btn btn-danger">
@@ -210,6 +210,7 @@ export default {
             this.addedNewCategory = ''
         },
         editCategory(key, value) {
+            this.rerenderCount++
             let editItem = [{
                 key: key,
                 category: value.replace(/\s+/g, ' ')
@@ -219,12 +220,12 @@ export default {
                 if(item.key === editItem[0].key) {
                     item.value = editItem[0].category
                 }
+            })
 
-                this.expensesDataInTable.map(td => {
-                    if(td.key === editItem[0].key) {
-                        td.category = editItem[0].category
-                    }
-                })
+            this.expensesDataInTable.map(td => {
+                if(td.key === editItem[0].key) {
+                    td.category = editItem[0].category
+                }
             })
         },
         changeCategory(event) {
@@ -248,9 +249,9 @@ export default {
                 let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
                 let isItemInTable = itemInTable.length > 0
 
-                if(isItemInTable === false) {                   //item not present, please insert it
+                if(isItemInTable === false) {
                     this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
-                } else {                                        //item already exists, update only calculation
+                } else {
                     this.expensesDataInTable.filter(item => {
                         if(item.key === checkItem[0].key) {
                             item.expenses += checkItem[0].expenses
@@ -261,10 +262,15 @@ export default {
                 this.expenses = ''
             }
         },
+        editItem(val) {
+            val.edit = !val.edit
+            this.rerenderCount++
+        },
         removeItem(selData) {
             // this.expensesDataInTable.splice(index, 1)            //only remove from DOM
             if (confirm('Sure to delete')) {
                 this.expensesDataInTable = this.expensesDataInTable.filter((item) => item.key != selData.key)
+                this.rerenderCount--
             }
         },
         showChartSection() {
