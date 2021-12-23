@@ -16,14 +16,14 @@
                                     <!-- Add category Section -->
                                     <div class="element add-category input-section">
                                         <div class="add-category-input">
-                                            <input type="text" v-model="newAddedCategory" ref="clearTextRef" placeholder="Enter here to add new category"/>
+                                            <input type="text" v-model="addedNewCategory" ref="clearTextRef" placeholder="Enter here to add new category"/>
                                         </div>
                                     </div>
                                     
                                     <div class="element add-category-submit-btn">
                                         <button 
-                                            v-bind:disabled="newAddedCategory.length == 0"
-                                            @click="pushCategory"
+                                            v-bind:disabled="addedNewCategory.length == 0"
+                                            @click="addCategory"
                                             class="btn btn-primary me-md-2" style="height: 50px;">
                                             Add Category
                                         </button>
@@ -46,7 +46,7 @@
                                         <div class="element add-category-submit-btn">
                                             <button
                                                 v-bind:disabled="selectedCategoryValue.length == 0"
-                                                @click="updateCategory"
+                                                @click="updateCategory(expensesDataInTable)"
                                                 class="btn btn-primary me-md-2" style="height: 50px;">
                                                 Edit Category
                                             </button>
@@ -61,7 +61,7 @@
                                 <div class="drop-down-section" style="display: flex; width: 35%">
                                     <select v-model="selectedCategoryValue" @change="changeCategory($event)">
                                         <option v-for="category in defaultCategories" v-bind:value="category.key" :key="category.key">
-                                        {{ category.value }}
+                                            {{ category.value }}
                                         </option>
                                     </select>
                                 </div>
@@ -73,7 +73,7 @@
                     <!-- Right side -->
                     <div class="column" style="padding: 1rem;">
                         <div v-if="selectedCategoryValue">
-                            <!-- You select - {{ selectedCategoryValue }} with key: {{selectedCategoryKey}} -->
+                            You select - {{ selectedCategoryValue }} with key: {{selectedCategoryKey}}
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-4 col-sm-offset-1">
@@ -84,12 +84,12 @@
                                             </div>
                                             <form>
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="expenses">
+                                                    <input type="number" class="form-control" id="floatingInput" v-model="expenses">
                                                     <label for="floatingInput">Expenses in {{selectedCategoryValue}}</label>
                                                 </div>
                                                 <input class="form-control input-lg" type="text" id="category" placeholder="category" :value="selectedCategoryValue" readonly />
                                             </form>
-                                            <button @click="addItem(this.selectedExpensesdata)" class="btn btn-primary btn-lg btn-block">Add to table</button>
+                                            <button @click="addItem(this.selectedCategoryKey, this.selectedCategoryValue)" class="btn btn-primary btn-lg btn-block">Add to table</button>
                                         </div>
                                     </div>
                                     <div v-if="isResultTableShow" class="col-sm-8">
@@ -104,7 +104,7 @@
                                                         <!-- <th>Edit/Del</th> -->
                                                     </thead>
                                                     
-                                                    <tr v-for="(item, index) in selectedExpensesdata" :key="index">
+                                                    <tr v-for="(item, index) in expensesDataInTable" :key="index">
                                                         <td>
                                                         <input v-if="item.edit" type="text" v-model="item.category"  v-on:keyup.enter="item.edit = !item.edit">
                                                         <span v-else>{{item.category}} </span>
@@ -152,7 +152,7 @@
 
         <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
 
-            <FusionChartData :selectedTableValueData="selectedExpensesdata" :key="selectedExpensesdata" />
+            <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" />
         </div>
     </div>
 </template>
@@ -168,7 +168,7 @@ export default {
     data() {
         return {
             editing: false,
-            newAddedCategory: '',
+            addedNewCategory: '',
             selectedCategoryValue: '',
             selectedCategoryKey: '',
             isResultTableShow: false,
@@ -182,44 +182,54 @@ export default {
                 { key: 'pocket-money', value: 'Pocket Money', expenses: 0, edit: false},
                 { key: 'room-expenses', value: 'Room Expenses', expenses: 0, edit: false},
             ],
-            selectedExpensesdata: [],
+            expensesDataInTable: [],
+            rerenderCount: 0
         }
     },
     methods: {
         toggleBudget(editing) {
             this.editing = editing
         },
-        pushCategory: function() {
-            this.defaultCategories.push({key: this.newAddedCategory.replace(/\s+/g, '-').toLowerCase(), value: this.newAddedCategory})
-            this.newAddedCategory = ''
+        addCategory: function() {
+            this.defaultCategories.push({key: this.addedNewCategory.replace(/\s+/g, '-').toLowerCase(), value: this.addedNewCategory})
+            this.addedNewCategory = ''
         },
         updateCategory: function() {
             this.selectedCategoryValue = this.selectedCategoryValue.replace(/\s+/g, ' ')
-            console.log(this.selectedCategoryValue)
+            console.log('selectedCategoryValue:', this.selectedCategoryValue)
         },
         changeCategory(event) {
             this.selectedCategoryValue = event.target.options[event.target.options.selectedIndex].text
             this.selectedCategoryKey = event.target.value
         },
-        addItem() {
+        addItem(key, value) {
+            let checkItem = [{
+                key,
+                category: value,
+                expenses: this.expenses
+            }]
             this.isResultTableShow = true
+            this.rerenderCount++
             
+            let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
+            let isItemInTable = itemInTable.length > 0
 
-            // let itemInTable = this.selectedExpensesdata.filter(item => item.key === itemToAdd.key)
-            // let isItemInTable = itemInTable.length > 0
+            if(isItemInTable === false) {                   //item not present, please insert it
+                console.log('no, added new')
+                this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
+            } else {                                        //item already exists, update only calculation
+                this.expensesDataInTable.filter(item => {
+                    if(item.key === checkItem[0].key) {
+                        item.expenses += checkItem[0].expenses
+                    }
+                })
 
-            // if(isItemInTable === false) {
-            //     console.log('no, added new')
-            //     this.selectedExpensesdata.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
-            // } else {
-            //     console.log('Yes, already exists only update exopenses')
-            //     itemInTable.expenses += itemToAdd.expenses
-            // }
+            }
 
-            this.selectedExpensesdata.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
+            // this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
         },
         removeItem(index) {
-            this.selectedExpensesdata.splice(index, 1)
+            this.expensesDataInTable.splice(index, 1)
         },
         showChartSection() {
             this.isChartTableShow = !this.isChartTableShow
@@ -228,25 +238,12 @@ export default {
     computed: {
         totalExpenses() {
             let sum = 0
-            for (let i = 0; i < this.selectedExpensesdata.length; i++){
-                sum += parseInt(this.selectedExpensesdata[i].expenses);
+            for (let i = 0; i < this.expensesDataInTable.length; i++){
+                sum += parseInt(this.expensesDataInTable[i].expenses);
             }
             return sum;
         }
     },
-    watch: {
-        // selectedCategoryValue: function(newValue, oldvalue) {
-        //     if(newValue != oldvalue) {
-        //         console.log('value is changed')
-        //     } else {
-        //         console.log('Nothing any changes!')
-        //     }
-
-        // }
-    },
-    // updated: function() {
-    //     console.log('child-referred updated');
-    // }
 }
 </script>
 

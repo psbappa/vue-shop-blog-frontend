@@ -2,7 +2,7 @@
     <div id="chart-container">
         <div class="fusion-chart">
             <div class="show-test-data">
-                <span>{{selectedTableValueData}}</span>
+                <!-- <span>{{selectedTableValueData}}</span> -->
             </div>
             <fusioncharts
                 :type="type"
@@ -74,16 +74,7 @@
                         numberPrefix: "Rs",
                         showBorder: "1",
                     },
-                    data: [
-                        {
-                            label: "Food",
-                            value: "5000",
-                        },
-                        {
-                            label: "Traveling",
-                            value: "500",
-                        }
-                    ],
+                    data: [],
                 },
                 events: {
                     dataPlotRollOver: function (e) {
@@ -103,33 +94,20 @@
                 const chart = this.$refs.fc.chartObj,
                     type = e.target.value.toLowerCase();
                 chart.chartType(type);
-            },
-            onChartReRender: function() {
-                // console.log('selectedTableValueData', this.selectedTableValueData[1].expenses)
-                console.log('onChartReRender static fusion value', this.dataSource.data[0], this.dataSource.data[1])
-                this.selectedTableValueData.forEach( (val) =>
-                    console.log('Data from props value:', val.category,val.expenses)
-                    
-                );
-
             }
         },
         computed: {
             
         },
-        beforeCreate: function() {
-            console.log('Child Life Cycle - Before Created', this.dataSource)
-        },
         created: function() {
-            console.log('Child Life Cycle - Created', this.dataSource.data[1].value = '1000', this.dataSource.data[1].value = '1000')
-            this.onChartReRender()
-        },
-        // beforeMount: function() {
-        //     console.log('Child Life Cycle - Before mount', this.dataSource)
-        // },
-        // mounted: function() {
-        //     console.log('Child Life Cycle - Mount', this.dataSource)
-        // }
+            let itemArr = this.selectedTableValueData.map(item => {
+            return {
+                label: item.category,
+                value: item.expenses,
+                }
+            });
+            this.dataSource.data = itemArr
+        }
          
     }
 </script>
