@@ -2,9 +2,9 @@
     <div class="budget-planner">
         <div class="header-section" style="background-color: #86d393">
             <div class="budget-header-section py-3">
-                <h2>Budget App </h2>
-                <button v-if="editing" @click="toggleBudget(false)" class="btn btn-danger">Close Budget</button>
-                <button v-else @click="toggleBudget(true)" class="btn btn-primary">Open Budget</button>
+                <!-- <h2>Budget App</h2> -->
+                <button v-if="editing" @click="toggleBudget(false)" class="button modern border -small -plain">Close Budget</button>
+                <button v-else @click="toggleBudget(true)" class="button modern border -small -plain">Open Budget App</button>
             </div>
             <div v-if="editing" class="body-section" style="width: 100%; display: table; background: #b3946f">
                 <div style="display: table-row; height: 100px;">
@@ -342,4 +342,95 @@ input[type=submit]:hover {
     color:#FFF;
     cursor:pointer;
 }
+
+/* Button design Start */
+
+@media screen and (min-width: 82em) {
+    .buttons {
+        transform: translateX(0);
+        max-width: 50%;
+        width: 700px;
+        justify-content: center;
+        top: 200px;
+        bottom: auto;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    margin: 0 auto;
+    top: 368px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button.modern.-plain:hover {
+    transform: scale(1.1);
+}
+
+.buttons .modern {
+    padding: 0 30px;
+}
+
+.button.active.modern, .button:hover.modern, a:hover .button.modern {
+    box-shadow: inset 0 9px 21px rgb(19 183 166 / 10%), 0 0 2px rgb(60 196 180 / 60%);
+    border-left-color: #028ebb;
+    border-right-color: #028ebb;
+    border-top: 1px solid rgba(3,143,188,.722);
+    border-bottom: 1px solid rgba(3,143,188,.722);
+}
+
+.button.active.border, .button:hover.border, a:hover .button.border {
+    border-color: transparent;
+    color: #fff;
+}
+
+@media screen and (min-width: 40em) {
+    .button.-small.border {
+        line-height: 40px;
+    }
+}
+
+.button.modern.-plain {
+    padding: 0 30px;
+    background: rgba(5,37,59,.21);
+}
+
+.button.active, .button:hover, a:hover .button {
+    text-decoration: none;
+}
+
+.button.modern.-plain:before {
+    -webkit-animation: left 10s infinite;
+    animation: left 10s infinite;
+}
+
+.button:after, .button:before {
+    background: linear-gradient(to top right,transparent,#fff);
+    content: "";
+    height: 150px;
+    left: -175px;
+    opacity: .1;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    width: 100px;
+}
+
+.button:after, .button:before {
+    background: linear-gradient(to top right,transparent,#fff);
+    content: "";
+    height: 150px;
+    left: -175px;
+    opacity: .1;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    width: 100px;
+}
+
+/* Button design End */
 </style>

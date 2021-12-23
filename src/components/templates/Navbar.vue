@@ -1,30 +1,30 @@
 <template>
-    <div class="navbar">
+    <div class="navbar-block">
         <header>
             <div class="logo">Logo</div>
             <i class="material-icons">menu</i>
             <nav>
-                <div>
+                <!-- <div>
                     <a href="/home">Login</a>
+                </div> -->
+                <div>
+                    <router-link to="/about">About</router-link>
+                </div>
+                <div>
+                    <router-link to="/test">Test</router-link>
                 </div>
                 <!-- <div>
-                    <a href="/home">About Us</a>
-                </div>
-                <div>
                     <a href="/home">Our Projects</a>
                     <div>
                         <a href="/home">Project 1</a>
                         <a href="/home">Project 2</a>
                     </div>
-                </div>
-                <div>
-                    <a href="/home">Forum</a>
-                </div>
+                </div> -->
                 <div>
                     <a href="/home">Contact Us</a>
                 </div>
-                <div>
-                    <a href="/home">More</a>
+                <!-- <div>
+                    <a href="/home">Tests</a>
                     <div>
                         <a href="/home">Link 1</a>
                         <a href="/home">Link 2</a>
