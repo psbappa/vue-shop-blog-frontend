@@ -1,199 +1,326 @@
 <template>
     <div class="shop-head">
-        <h4>Shop</h4>
+        <div id="topBar">
+            <input type="text" id="search" name="search" class="form-control player-search" placeholder="Search for an item..." autocomplete="off">
+            
+            <div class="sortBy">
+                <h4>SORT BY:</h4>
+                <select class="form-control">
+                    <option>Most Popular</option>
+                    <option>Price [Lowest to Highest]</option>
+                    <option>Price [Highest to Lowest]</option>
+                    <option>Name [A to Z]</option>
+                </select>
+            </div>
+        </div>
 
-        <div class="container">
-            <h3 class="h3">shopping Demo-4 </h3>
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid4">
-                        <div class="product-image4">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-1.jpg">
-                                <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-2.jpg">
-                            </a>
-                            <ul class="social">
-                                <li><a href="#" data-tip="Quick View"><i class="fas fa-camera"></i></a></li>
-                                <li><a href="#" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                                <li><a href="#" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                            </ul>
-                            <span class="product-new-label">New</span>
-                            <span class="product-discount-label">-10%</span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
-                            <div class="price">
-                                $14.40
-                                <span>$16.00</span>
+        <div class="container-fluid h-100 left-sidebar">
+            <div class="row h-100">
+                <div class="col-3" style="width: 19% !important; height: 100%;">
+                    <aside id="filters left-side">
+                        <h1 class="bigHead">FILTER SHOP ITEMS</h1>
+                        <h2 class="bump"><span class="results">37</span> Results Found</h2>
+
+                        <div id="type">
+                            <h1>TYPE</h1>
+                            <div class="bump">
+                            <div class="box1">
+                                <input type="checkbox" id="clothing">
+                                <label for="clothing" class="check-box"></label>
+                                <h4>Clothing</h4>
                             </div>
-                            <a class="add-to-cart" href="">ADD TO CART</a>
+                            <div class="box1">
+                                <input type="checkbox" id="equipment">
+                                <label for="equipment" class="check-box"></label>
+                                <h4>Equipment</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="trips">
+                                <label for="trips" class="check-box"></label>
+                                <h4>Trips/Tickets</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="social">
+                                <label for="social" class="check-box"></label>
+                                <h4>Social Media</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="profile">
+                                <label for="profile" class="check-box"></label>
+                                <h4>Profile Perks</h4>
+                            </div>
+                            </div>
                         </div>
-                    </div>
+
+                        <div id="sports" class="clearfix">
+                            <h1>SPORT</h1>
+                            <div class="bump">
+                            <div class="box1">
+                                <input type="checkbox" id="nfl">
+                                <label for="nfl" class="check-box"></label>
+                                <h4>NFL</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="mlb">
+                                <label for="mlb" class="check-box"></label>
+                                <h4>PGA</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="pga">
+                                <label for="pga" class="check-box"></label>
+                                <h4>MLB</h4>
+                            </div>
+                            <div class="box1">
+                                <input type="checkbox" id="esports">
+                                <label for="esports" class="check-box"></label>
+                                <h4 class="clearMarg">E-SPORTS</h4>
+                            </div>
+                            </div>
+                        </div>
+
+
+                        <div id="specials" class="clearfix">
+                            <h1>SPECIALS</h1>
+                            <div class="specBump">
+                            <div class="box2">
+                                <input type="checkbox" id="onSale">
+                                <label for="onSale" class="check-box"></label>
+                                <h4>ON SALE</h4>
+                            </div>
+                            <div class="box2">
+                                <input type="checkbox" id="newest">
+                                <label for="newest" class="check-box"></label>
+                                <h4>NEWEST</h4>
+                            </div>
+                            <div class="box2">
+                                <input type="checkbox" id="featured">
+                                <label for="featured" class="check-box"></label>
+                                <h4>FEATURED</h4>
+                            </div>
+                            </div>
+                        </div>
+                        <!--END SPECIALS RANGE -->
+
+
+                        <div id="priceRange" class="clearfix">
+                            <h1>PRICE RANGE</h1>
+                            <div class="bump">
+                            <div id="slider"></div>
+
+                            <div class="minVal">
+                                <h3 class="minPrice">1,300</h3>
+                            </div>
+
+                            <div class="maxVal">
+                                <h3 class="maxPrice">14,000</h3>
+                            </div>
+                            </div>
+                        </div>
+                        <!--END PRICE RANGE-->
+                    </aside>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid4">
-                        <div class="product-image4">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-3.jpg">
-                                <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-4.jpg">
-                            </a>
-                            <ul class="social">
-                                <li><a href="#" data-tip="Quick View"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                                <li><a href="#" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                            </ul>
-                            <span class="product-discount-label">-12%</span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
-                            <div class="price">
-                                $17.60
-                                <span>$20.00</span>
+                <div class="col overflow-auto h-100 py-5">
+                    <div class="products-lists">
+                        <div class="container">
+                            <div class="odd">
+                                <h3 class="h3">Trends</h3>
                             </div>
-                            <a class="add-to-cart" href="">ADD TO CART</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid4">
-                        <div class="product-image4">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-5.jpg">
-                                <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-6.jpg">
-                            </a>
-                            <ul class="social">
-                                <li><a href="#" data-tip="Quick View"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                                <li><a href="#" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                            </ul>
-                            <span class="product-new-label">New</span>
-                            <span class="product-discount-label">-10%</span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
-                            <div class="price">
-                                $14.40
-                                <span>$16.00</span>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid4">
+                                        <div class="product-image4">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                                <img class="pic-2" src="https://picsum.photos/200/200">
+                                            </a>
+                                            <ul class="social">
+                                                <li><a href="#" data-tip="Quick View"><fa icon="camera" /></a></li>
+                                                <li><a href="#" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                                <li><a href="#" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                            </ul>
+                                            <span class="product-new-label">New</span>
+                                            <span class="product-discount-label">-10%</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
+                                            <div class="price">
+                                                $14.40
+                                                <span>$16.00</span>
+                                            </div>
+                                            <a class="add-to-cart" href="">ADD TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid4">
+                                        <div class="product-image4">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                                <img class="pic-2" src="https://picsum.photos/200/200">
+                                            </a>
+                                            <ul class="social">
+                                                <li><a href="#" data-tip="Quick View"><fa icon="camera" /></a></li>
+                                                <li><a href="#" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                                <li><a href="#" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                            </ul>
+                                            <span class="product-discount-label">-12%</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+                                            <div class="price">
+                                                $17.60
+                                                <span>$20.00</span>
+                                            </div>
+                                            <a class="add-to-cart" href="">ADD TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid4">
+                                        <div class="product-image4">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                                <img class="pic-2" src="https://picsum.photos/200/200">
+                                            </a>
+                                            <ul class="social">
+                                                <li><a href="#" data-tip="Quick View"><fa icon="camera" /></a></li>
+                                                <li><a href="#" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                                <li><a href="#" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                            </ul>
+                                            <span class="product-new-label">New</span>
+                                            <span class="product-discount-label">-10%</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
+                                            <div class="price">
+                                                $14.40
+                                                <span>$16.00</span>
+                                            </div>
+                                            <a class="add-to-cart" href="">ADD TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid4">
+                                        <div class="product-image4">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                                <img class="pic-2" src="https://picsum.photos/200/200">
+                                            </a>
+                                            <ul class="social">
+                                                <li><a href="#" data-tip="Quick View"><fa icon="camera" /></a></li>
+                                                <li><a href="#" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                                <li><a href="#" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                            </ul>
+                                            <span class="product-new-label">New</span>
+                                            <span class="product-discount-label">-10%</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
+                                            <div class="price">
+                                                $14.40
+                                                <span>$16.00</span>
+                                            </div>
+                                            <a class="add-to-cart" href="">ADD TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <a class="add-to-cart" href="">ADD TO CART</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid4">
-                        <div class="product-image4">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-7.jpg">
-                                <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo5/images/img-8.jpg">
-                            </a>
-                            <ul class="social">
-                                <li><a href="#" data-tip="Quick View"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                                <li><a href="#" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                            </ul>
-                            <span class="product-new-label">New</span>
-                            <span class="product-discount-label">-10%</span>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Women's Black Top</a></h3>
-                            <div class="price">
-                                $14.40
-                                <span>$16.00</span>
+                        <hr>
+
+                        <div class="container">
+                            <div class="odd">
+                                <h3 class="h3">Upcomming</h3>
                             </div>
-                            <a class="add-to-cart" href="">ADD TO CART</a>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid6">
+                                        <div class="product-image6">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                                            <div class="price">$11.00
+                                                <span>$14.00</span>
+                                            </div>
+                                        </div>
+                                        <ul class="social">
+                                            <li><a href="" data-tip="Quick View"><fa icon="eye" /></a></li>
+                                            <li><a href="" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                            <li><a href="" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid6">
+                                        <div class="product-image6">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Women's Red Top</a></h3>
+                                            <div class="price">$8.00
+                                                <span>$12.00</span>
+                                            </div>
+                                        </div>
+                                        <ul class="social">
+                                            <li><a href="" data-tip="Quick View"><fa icon="eye" /></a></li>
+                                            <li><a href="" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                            <li><a href="" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid6">
+                                        <div class="product-image6">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                                            <div class="price">$11.00
+                                                <span>$14.00</span>
+                                            </div>
+                                        </div>
+                                        <ul class="social">
+                                            <li><a href="" data-tip="Quick View"><fa icon="eye" /></a></li>
+                                            <li><a href="" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                            <li><a href="" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="product-grid6">
+                                        <div class="product-image6">
+                                            <a href="#">
+                                                <img class="pic-1" src="https://picsum.photos/200/200">
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                                            <div class="price">$11.00
+                                                <span>$14.00</span>
+                                            </div>
+                                        </div>
+                                        <ul class="social">
+                                            <li><a href="" data-tip="Quick View"><fa icon="eye" /></a></li>
+                                            <li><a href="" data-tip="Add to Wishlist"><fa icon="shopping-bag" /></a></li>
+                                            <li><a href="" data-tip="Add to Cart"><fa icon="cart-plus" /></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
-
-        <div class="container">
-            <h3 class="h3">shopping Demo-6 </h3>
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid6">
-                        <div class="product-image6">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-1.jpg">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
-                            <div class="price">$11.00
-                                <span>$14.00</span>
-                            </div>
-                        </div>
-                        <ul class="social">
-                            <li><a href="" data-tip="Quick View"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                            <li><a href="" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid6">
-                        <div class="product-image6">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-2.jpg">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Women's Red Top</a></h3>
-                            <div class="price">$8.00
-                                <span>$12.00</span>
-                            </div>
-                        </div>
-                        <ul class="social">
-                            <li><a href="" data-tip="Quick View"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                            <li><a href="" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid6">
-                        <div class="product-image6">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-3.jpg">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
-                            <div class="price">$11.00
-                                <span>$14.00</span>
-                            </div>
-                        </div>
-                        <ul class="social">
-                            <li><a href="" data-tip="Quick View"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                            <li><a href="" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="product-grid6">
-                        <div class="product-image6">
-                            <a href="#">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-4.jpg">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">Men's Shirt</a></h3>
-                            <div class="price">$11.00
-                                <span>$14.00</span>
-                            </div>
-                        </div>
-                        <ul class="social">
-                            <li><a href="" data-tip="Quick View"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Wishlist"><i class="fas fa-shopping-bag"></i></a></li>
-                            <li><a href="" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
     </div>
 </template>
 
@@ -204,6 +331,387 @@
 </script>
 
 <style scoped>
+
+/* Shop body start */
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700);
+body {
+  padding: 40px 0 0 0;
+  font-family: 'Titillium Web', sans-serif;
+  background: #efefef;
+  color: rgb(177, 177, 177);
+  padding: 20px 20px;
+}
+
+aside,
+section {
+  width: 244px;
+  border-right: 1px solid rgba(51, 51, 51, 0.3);
+  padding-right: 30px;
+}
+
+.left-side {width:250px; height:250px; background:#ddd; display:inline-block; float: left; position:sticky; top:50px;}
+
+#topBar {
+  height: 55px;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.3);
+  padding: 8px 16px 0px 0px;
+}
+
+#topBar input {
+  width:430px;
+  float:left;
+  clear: none;
+}
+
+#topBar select {
+  max-width: 200px;
+  /* float: right; */
+}
+
+#topBar .player-search {
+  background: #fff url("//d1g3fc5n8s9pjg.cloudfront.net/img/icons/util/search.svg") no-repeat;
+  background-size: 14px 14px;
+  background-position: 10px center;
+  /* padding-left: 35px;
+  width: 500px; */
+}
+
+.sortBy {
+  float: right;
+  /* width: 330px; */
+}
+
+.sortBy h4 {
+  float: left;
+  margin-top: 7px;
+}
+
+
+#specials,#priceRange,#sports,#type
+{
+  margin: 10px 0;
+  position: relative;
+  clear: both;
+}
+
+.value {
+  display: none !important;
+}
+
+.bigHead {
+  font-size: 1.2em;
+  color: rgb(101, 101, 101);
+  margin-top:0;
+  padding-top: 15px;
+}
+
+h1 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin: 0;
+   font-size: 1.3em;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin-top: -5px;
+}
+
+h4 {
+  color: #b1b1b1;
+  font-size: 1.1em;
+}
+
+.results {
+  color: #f4c015;
+  font-weight: 600;
+  font-size: 1.8em;
+}
+
+#sports h4,
+#type h4 {
+  font-size: 1.1em;
+  display: inline-block;
+  margin: 5px 10px;
+  clear: none;
+}
+
+#sports .check-box,
+#type .check-box {
+  float: left;
+}
+
+.box1 {
+  min-width: 120px;
+  margin: 10px 0;
+  clear: none;
+  color: #b1b1b1;
+}
+
+#sports .box1 {
+  float: left;
+  margin: 4px 0;
+}
+
+.box2 {
+  float: left;
+  text-align: center;
+  margin-right: 17px;
+}
+
+.clearMarg {
+  margin: 15px 0;
+}
+
+#slider {}
+
+.prices {
+  margin: 0 auto;
+}
+
+.prices img {
+  width: 25px;
+  margin-right: 5px;
+}
+
+.minVal,
+.maxVal {
+  margin-top: 20px;
+  background: url("//d1g3fc5n8s9pjg.cloudfront.net/img/icons/user/ticket-gold.svg") no-repeat;
+  background-size: 25px;
+  padding: 5px 0 5px 25px;
+}
+
+.minVal img,
+.maxVal img {
+  width: 35px;
+}
+
+.minVal h3,
+.maxVal h3 {
+  float: right;
+  clear: none;
+  padding-left: 2px;
+}
+
+.minVal {
+  float: left;
+  clear: none;
+}
+
+.maxVal {
+  float: right;
+  clear: none;
+}
+
+.bump {
+  margin-left: 25px;
+  position: relative
+}
+
+.specBump {
+  margin-left: 5px;
+}
+
+.ui-widget-header {
+  background: #f4c015;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  background: #656565;
+}
+
+.ui-widget-content {
+  background: #ddd;
+}
+
+.ui-slider-handle:focus {
+  outline: none;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: -.5em;
+  margin-left: -.6em;
+  height: 1.8em;
+  width: 1.3em
+}
+/*CHECK BOXES*/
+/* Checkmark style starts */
+
+@-moz-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 15px;
+  }
+}
+
+@-webkit-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 15px;
+  }
+}
+
+@keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 15px;
+  }
+}
+
+@keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 30px;
+  }
+}
+
+@-webkit-keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 30px;
+  }
+}
+
+@-moz-keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 30px;
+  }
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+.check-box {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  border: 2px solid #838383;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transition: border-color ease 0.2s;
+  -o-transition: border-color ease 0.2s;
+  -webkit-transition: border-color ease 0.2s;
+  transition: border-color ease 0.2s;
+  cursor: pointer;
+}
+
+.check-box:last-child,#specials ul li:last-child {
+  /*margin-right: 0;*/
+}
+
+.check-box::before,
+.check-box::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  height: 0;
+  width: 5px;
+  background-color: #f4c015;
+  display: inline-block;
+  -moz-transform-origin: left top;
+  -ms-transform-origin: left top;
+  -o-transform-origin: left top;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  border-radius: 2px;
+  content: ' ';
+  -webkit-transition: opacity ease .5;
+  -moz-transition: opacity ease .5;
+  transition: opacity ease .5;
+}
+
+.check-box::before {
+  top: 20px;
+  left: 15px;
+  box-shadow: 0 0 0 3px #efefef;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
+.check-box::after {
+  top: 10px;
+  left: 4px;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+input[type=checkbox]:checked + .check-box,
+.check-box.checked {
+  border-color: #f4c015;
+}
+
+input[type=checkbox]:checked + .check-box::after,
+.check-box.checked::after {
+  height: 10px;
+  -moz-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -o-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
+  animation: dothabottomcheck 0.2s ease 0s forwards;
+}
+
+input[type=checkbox]:checked + .check-box::before,
+.check-box.checked::before {
+  height: 60px;
+  -moz-animation: dothatopcheck 0.4s ease 0s forwards;
+  -o-animation: dothatopcheck 0.4s ease 0s forwards;
+  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
+  animation: dothatopcheck 0.4s ease 0s forwards;
+}
+
+.grey {
+  color: rgb(51, 51, 51) !important;
+}
+.fixed {
+  position: fixed;
+  top: 0;
+  height: 55px;
+  z-index: 1;
+  width:100%;
+}
+
+/* Shop body End */
+
 h3.h3 {
   text-align: center;
   margin: 1em;
@@ -211,531 +719,6 @@ h3.h3 {
   font-size: 1.7em;
 }
 
-/********************* shopping Demo-1 **********************/
-.product-grid {
-  font-family: Raleway, sans-serif;
-  text-align: center;
-  padding: 0 0 72px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-.product-grid .product-image {
-  position: relative;
-  transition: all 0.3s ease 0s;
-}
-.product-grid .product-image a {
-  display: block;
-}
-.product-grid .product-image img {
-  width: 100%;
-  height: auto;
-}
-.product-grid .pic-1 {
-  opacity: 1;
-  transition: all 0.3s ease-out 0s;
-}
-.product-grid:hover .pic-1 {
-  opacity: 1;
-}
-.product-grid .pic-2 {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.3s ease-out 0s;
-}
-.product-grid:hover .pic-2 {
-  opacity: 1;
-}
-.product-grid .social {
-  width: 150px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  opacity: 0;
-  transform: translateY(-50%) translateX(-50%);
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  z-index: 1;
-  transition: all 0.3s ease 0s;
-}
-.product-grid:hover .social {
-  opacity: 1;
-  top: 50%;
-}
-.product-grid .social li {
-  display: inline-block;
-}
-.product-grid .social li a {
-  color: #fff;
-  background-color: #333;
-  font-size: 16px;
-  line-height: 40px;
-  text-align: center;
-  height: 40px;
-  width: 40px;
-  margin: 0 2px;
-  display: block;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-.product-grid .social li a:hover {
-  color: #fff;
-  background-color: #ef5777;
-}
-.product-grid .social li a:after, .product-grid .social li a:before {
-  content: attr(data-tip);
-  color: #fff;
-  background-color: #000;
-  font-size: 12px;
-  letter-spacing: 1px;
-  line-height: 20px;
-  padding: 1px 5px;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-50%);
-  position: absolute;
-  left: 50%;
-  top: -30px;
-}
-.product-grid .social li a:after {
-  content: "";
-  height: 15px;
-  width: 15px;
-  border-radius: 0;
-  transform: translateX(-50%) rotate(45deg);
-  top: -20px;
-  z-index: -1;
-}
-.product-grid .social li a:hover:after, .product-grid .social li a:hover:before {
-  opacity: 1;
-}
-.product-grid .product-discount-label, .product-grid .product-new-label {
-  color: #fff;
-  background-color: #ef5777;
-  font-size: 12px;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 0;
-}
-.product-grid .product-discount-label {
-  background-color: #333;
-  left: auto;
-  right: 0;
-}
-.product-grid .rating {
-  color: #FFD200;
-  font-size: 12px;
-  padding: 12px 0 0;
-  margin: 0;
-  list-style: none;
-  position: relative;
-  z-index: -1;
-}
-.product-grid .rating li.disable {
-  color: rgba(0, 0, 0, 0.2);
-}
-.product-grid .product-content {
-  background-color: #fff;
-  text-align: center;
-  padding: 12px 0;
-  margin: 0 auto;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -27px;
-  z-index: 1;
-  transition: all 0.3s;
-}
-.product-grid:hover .product-content {
-  bottom: 0;
-}
-.product-grid .title {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  text-transform: capitalize;
-  margin: 0 0 10px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid .title a {
-  color: #828282;
-}
-.product-grid .title a:hover {
-  color: #ef5777;
-}
-.product-grid:hover .title a {
-  color: #ef5777;
-}
-.product-grid .price {
-  color: #333;
-  font-size: 17px;
-  font-family: Montserrat, sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  margin-bottom: 8px;
-  text-align: center;
-  transition: all 0.3s;
-}
-.product-grid .price span {
-  color: #999;
-  font-size: 13px;
-  font-weight: 400;
-  text-decoration: line-through;
-  margin-left: 3px;
-  display: inline-block;
-}
-.product-grid .add-to-cart {
-  color: #000;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-@media only screen and (max-width: 990px) {
-  .product-grid {
-    margin-bottom: 30px;
-  }
-}
-/********************* Shopping Demo-2 **********************/
-.demo {
-  padding: 45px 0;
-}
-
-.product-grid2 {
-  font-family: "Open Sans", sans-serif;
-  position: relative;
-}
-.product-grid2 .product-image2 {
-  overflow: hidden;
-  position: relative;
-}
-.product-grid2 .product-image2 a {
-  display: block;
-}
-.product-grid2 .product-image2 img {
-  width: 100%;
-  height: auto;
-}
-
-.product-image2 .pic-1 {
-  opacity: 1;
-  transition: all 0.5s;
-}
-
-.product-grid2:hover .product-image2 .pic-1 {
-  opacity: 0;
-}
-
-.product-image2 .pic-2 {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.5s;
-}
-
-.product-grid2:hover .product-image2 .pic-2 {
-  opacity: 1;
-}
-.product-grid2 .social {
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  bottom: 50px;
-  right: 25px;
-  z-index: 1;
-}
-.product-grid2 .social li {
-  margin: 0 0 10px;
-  display: block;
-  transform: translateX(100px);
-  transition: all 0.5s;
-}
-.product-grid2:hover .social li {
-  transform: translateX(0);
-}
-.product-grid2:hover .social li:nth-child(2) {
-  transition-delay: 0.15s;
-}
-.product-grid2:hover .social li:nth-child(3) {
-  transition-delay: 0.25s;
-}
-.product-grid2 .social li a {
-  color: #505050;
-  background-color: #fff;
-  font-size: 17px;
-  line-height: 45px;
-  text-align: center;
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  display: block;
-  transition: all 0.3s ease 0s;
-}
-.product-grid2 .social li a:hover {
-  color: #fff;
-  background-color: #3498db;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-.product-grid2 .social li a:after, .product-grid2 .social li a:before {
-  content: attr(data-tip);
-  color: #fff;
-  background-color: #000;
-  font-size: 12px;
-  line-height: 22px;
-  border-radius: 3px;
-  padding: 0 5px;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-50%);
-  position: absolute;
-  left: 50%;
-  top: -30px;
-}
-.product-grid2 .social li a:after {
-  content: "";
-  height: 15px;
-  width: 15px;
-  border-radius: 0;
-  transform: translateX(-50%) rotate(45deg);
-  top: -22px;
-  z-index: -1;
-}
-.product-grid2 .social li a:hover:after, .product-grid2 .social li a:hover:before {
-  opacity: 1;
-}
-.product-grid2 .add-to-cart {
-  color: #fff;
-  background-color: #404040;
-  font-size: 15px;
-  text-align: center;
-  width: 100%;
-  padding: 10px 0;
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -100%;
-  transition: all 0.3s;
-}
-.product-grid2 .add-to-cart:hover {
-  background-color: #3498db;
-  text-decoration: none;
-}
-.product-grid2:hover .add-to-cart {
-  bottom: 0;
-}
-.product-grid2 .product-new-label {
-  background-color: #3498db;
-  color: #fff;
-  font-size: 17px;
-  padding: 5px 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: all 0.3s;
-}
-.product-grid2:hover .product-new-label {
-  opacity: 0;
-}
-.product-grid2 .product-content {
-  padding: 20px 10px;
-  text-align: center;
-}
-.product-grid2 .title {
-  font-size: 17px;
-  margin: 0 0 7px;
-}
-.product-grid2 .title a {
-  color: #303030;
-}
-.product-grid2 .title a:hover {
-  color: #3498db;
-}
-.product-grid2 .price {
-  color: #303030;
-  font-size: 15px;
-}
-
-@media screen and (max-width: 990px) {
-  .product-grid2 {
-    margin-bottom: 30px;
-  }
-}
-/********************* Shopping Demo-3 **********************/
-.product-grid3 {
-  font-family: Roboto, sans-serif;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-.product-grid3:before {
-  content: "";
-  height: 81%;
-  width: 100%;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all 0.5s ease 0s;
-}
-.product-grid3:hover:before {
-  opacity: 1;
-  height: 100%;
-}
-.product-grid3 .product-image3 {
-  position: relative;
-}
-.product-grid3 .product-image3 a {
-  display: block;
-}
-.product-grid3 .product-image3 img {
-  width: 100%;
-  height: auto;
-}
-.product-grid3 .pic-1 {
-  opacity: 1;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid3:hover .pic-1 {
-  opacity: 0;
-}
-.product-grid3 .pic-2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid3:hover .pic-2 {
-  opacity: 1;
-}
-.product-grid3 .social {
-  width: 120px;
-  padding: 0;
-  margin: 0 auto;
-  list-style: none;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: -23px;
-  transform: scale(0);
-  transition: all 0.3s ease 0s;
-}
-.product-grid3:hover .social {
-  opacity: 1;
-  transform: scale(1);
-}
-.product-grid3:hover .product-discount-label, .product-grid3:hover .product-new-label, .product-grid3:hover .title {
-  opacity: 0;
-}
-.product-grid3 .social li {
-  display: inline-block;
-}
-.product-grid3 .social li a {
-  color: #e67e22;
-  background: #fff;
-  font-size: 18px;
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  margin: 0 2px;
-  display: block;
-  transition: all 0.3s ease 0s;
-}
-.product-grid3 .social li a:hover {
-  background: #e67e22;
-  color: #fff;
-}
-.product-grid3 .product-discount-label, .product-grid3 .product-new-label {
-  background-color: #e67e22;
-  color: #fff;
-  font-size: 17px;
-  padding: 2px 10px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  transition: all 0.3s;
-}
-.product-grid3 .product-content {
-  z-index: -1;
-  padding: 15px;
-  text-align: left;
-}
-.product-grid3 .title {
-  font-size: 14px;
-  text-transform: capitalize;
-  margin: 0 0 7px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid3 .title a {
-  color: #414141;
-}
-.product-grid3 .price {
-  color: #000;
-  font-size: 16px;
-  letter-spacing: 1px;
-  font-weight: 600;
-  margin-right: 2px;
-  display: inline-block;
-}
-.product-grid3 .price span {
-  color: #909090;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-decoration: line-through;
-  text-align: left;
-  display: inline-block;
-  margin-top: -2px;
-}
-.product-grid3 .rating {
-  padding: 0;
-  margin: -22px 0 0;
-  list-style: none;
-  text-align: right;
-  display: block;
-}
-.product-grid3 .rating li {
-  color: #ffd200;
-  font-size: 13px;
-  display: inline-block;
-}
-.product-grid3 .rating li.disable {
-  color: #dcdcdc;
-}
-
-@media only screen and (max-width: 1200px) {
-  .product-grid3 .rating {
-    margin: 0;
-  }
-}
-@media only screen and (max-width: 990px) {
-  .product-grid3 {
-    margin-bottom: 30px;
-  }
-  .product-grid3 .rating {
-    margin: -22px 0 0;
-  }
-}
-@media only screen and (max-width: 359px) {
-  .product-grid3 .rating {
-    margin: 0;
-  }
-}
 /********************* Shopping Demo-4 **********************/
 .product-grid4 {
   position: relative;
@@ -929,149 +912,6 @@ h3.h3 {
     margin-bottom: 30px;
   }
 }
-/********************* Shopping Demo-5 **********************/
-.product-image5 .pic-1, .product-image5 .pic-2 {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  transition: all 0.5s ease 0s;
-}
-
-.product-grid5 {
-  font-family: Poppins, sans-serif;
-  position: relative;
-}
-.product-grid5 .product-image5 {
-  overflow: hidden;
-  position: relative;
-}
-.product-grid5 .product-image5 a {
-  display: block;
-}
-.product-grid5 .product-image5 img {
-  width: 100%;
-  height: auto;
-}
-
-.product-image5 .pic-1 {
-  opacity: 1;
-}
-
-.product-grid5:hover .product-image5 .pic-1 {
-  opacity: 0;
-}
-
-.product-image5 .pic-2 {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.product-grid5:hover .product-image5 .pic-2 {
-  opacity: 1;
-}
-.product-grid5 .social {
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.product-grid5 .social li {
-  display: block;
-  margin: 0 0 10px;
-  transition: all 0.5s;
-}
-.product-grid5 .social li:nth-child(2) {
-  opacity: 0;
-  transform: translateY(-50px);
-}
-.product-grid5:hover .social li:nth-child(2) {
-  opacity: 1;
-  transform: translateY(0);
-}
-.product-grid5 .social li:nth-child(3) {
-  opacity: 0;
-  transform: translateY(-50px);
-}
-.product-grid5:hover .social li:nth-child(3) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.2s;
-}
-.product-grid5 .social li a {
-  color: #888;
-  background: #fff;
-  font-size: 14px;
-  text-align: center;
-  line-height: 40px;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  display: block;
-  transition: 0.5s ease 0s;
-}
-.product-grid5 .social li a:hover {
-  color: #fff;
-  background: #1e3799;
-}
-.product-grid5 .select-options {
-  color: #777;
-  background-color: #fff;
-  font-size: 13px;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 15px 5px;
-  margin: 0 auto;
-  opacity: 0;
-  display: block;
-  position: absolute;
-  width: 92%;
-  left: 0;
-  bottom: -100px;
-  right: 0;
-  transition: 0.5s ease 0s;
-}
-.product-grid5 .select-options:hover {
-  color: #fff;
-  background-color: #1e3799;
-  text-decoration: none;
-}
-.product-grid5:hover .select-options {
-  opacity: 1;
-  bottom: 10px;
-}
-.product-grid5 .product-content {
-  padding: 20px 10px;
-}
-.product-grid5 .title {
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: capitalize;
-  margin: 0 0 10px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid5 .title a {
-  color: #222;
-}
-.product-grid5 .title a:hover {
-  color: #1e3799;
-}
-.product-grid5 .price {
-  color: #222;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-@media only screen and (max-width: 990px) {
-  .product-grid5 {
-    margin-bottom: 30px;
-  }
-}
 /********************* Shopping Demo-6 **********************/
 .product-grid6 {
   overflow: hidden;
@@ -1201,412 +1041,6 @@ h3.h3 {
 
 @media only screen and (max-width: 990px) {
   .product-grid6 {
-    margin-bottom: 30px;
-  }
-}
-/********************* Shopping Demo-7 **********************/
-.product-grid7 {
-  font-family: "Roboto Slab", serif;
-  position: relative;
-  z-index: 1;
-}
-.product-grid7 .product-image7 {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  perspective: 1500px;
-  position: relative;
-  transition: all 0.3s ease 0s;
-}
-.product-grid7 .product-image7 a {
-  display: block;
-}
-.product-grid7 .product-image7 img {
-  width: 100%;
-  height: auto;
-}
-.product-grid7 .pic-1 {
-  opacity: 1;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid7 .pic-2 {
-  opacity: 0;
-  transform: rotateY(-90deg);
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid7:hover .pic-2 {
-  opacity: 1;
-  transform: rotateY(0);
-}
-.product-grid7 .social {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  position: absolute;
-  bottom: 3px;
-  left: -20%;
-  z-index: 1;
-  transition: all 0.5s ease 0s;
-}
-.product-grid7:hover .social {
-  left: 17px;
-}
-.product-grid7 .social li a {
-  color: #fff;
-  background-color: #333;
-  font-size: 16px;
-  line-height: 40px;
-  text-align: center;
-  height: 40px;
-  width: 40px;
-  margin: 15px 0;
-  border-radius: 50%;
-  display: block;
-  transition: all 0.5s ease-in-out;
-}
-.product-grid7 .social li a:hover {
-  color: #fff;
-  background-color: #78e08f;
-}
-.product-grid7 .product-new-label {
-  color: #fff;
-  background-color: #333;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-.product-grid7 .product-content {
-  text-align: center;
-  padding: 20px 0 0;
-}
-.product-grid7 .title {
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: capitalize;
-  margin: 0 0 10px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid7 .title a {
-  color: #333;
-}
-.product-grid7 .title a:hover {
-  color: #78e08f;
-}
-.product-grid7 .rating {
-  color: #78e08f;
-  font-size: 12px;
-  padding: 0;
-  margin: 0 0 10px;
-  list-style: none;
-}
-.product-grid7 .price {
-  color: #333;
-  font-size: 20px;
-  font-family: Lora, serif;
-  font-weight: 700;
-  margin-bottom: 8px;
-  text-align: center;
-  transition: all 0.3s;
-}
-.product-grid7 .price span {
-  color: #999;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: line-through;
-  margin-left: 7px;
-  display: inline-block;
-}
-
-@media only screen and (max-width: 990px) {
-  .product-grid7 {
-    margin-bottom: 30px;
-  }
-}
-/********************* Shopping Demo-8 **********************/
-.product-grid8 {
-  font-family: Poppins, sans-serif;
-  position: relative;
-  z-index: 1;
-}
-.product-grid8 .product-image8 {
-  border: 1px solid #e4e9ef;
-  position: relative;
-  transition: all 0.3s ease 0s;
-}
-.product-grid8:hover .product-image8 {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
-.product-grid8 .product-image8 a {
-  display: block;
-}
-.product-grid8 .product-image8 img {
-  width: 100%;
-  height: auto;
-}
-.product-grid8 .pic-1 {
-  opacity: 1;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid8:hover .pic-1 {
-  opacity: 0;
-}
-.product-grid8 .pic-2 {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid8:hover .pic-2 {
-  opacity: 1;
-}
-.product-grid8 .social {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  position: absolute;
-  bottom: 13px;
-  right: 13px;
-  z-index: 1;
-}
-.product-grid8 .social li {
-  opacity: 0;
-  transform: translateY(3px);
-  transition: all 0.5s ease 0s;
-}
-.product-grid8:hover .social li {
-  margin: 0 0 10px;
-  opacity: 1;
-  transform: translateY(0);
-}
-.product-grid8:hover .social li:nth-child(1) {
-  transition-delay: 0.1s;
-}
-.product-grid8:hover .social li:nth-child(2) {
-  transition-delay: 0.2s;
-}
-.product-grid8:hover .social li:nth-child(3) {
-  transition-delay: 0.4s;
-}
-.product-grid8 .social li a {
-  color: grey;
-  font-size: 17px;
-  line-height: 40px;
-  text-align: center;
-  height: 40px;
-  width: 40px;
-  border: 1px solid grey;
-  display: block;
-  transition: all 0.5s ease-in-out;
-}
-.product-grid8 .social li a:hover {
-  color: #000;
-  border-color: #000;
-}
-.product-grid8 .product-discount-label {
-  display: block;
-  padding: 4px 15px 4px 30px;
-  color: #fff;
-  background-color: #0081c2;
-  position: absolute;
-  top: 10px;
-  right: 0;
-  -webkit-clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
-}
-.product-grid8 .product-content {
-  padding: 20px 0 0;
-}
-.product-grid8 .price {
-  color: #000;
-  font-size: 19px;
-  font-weight: 400;
-  margin-bottom: 8px;
-  text-align: left;
-  transition: all 0.3s;
-}
-.product-grid8 .price span {
-  color: #999;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: line-through;
-  margin-left: 7px;
-  display: inline-block;
-}
-.product-grid8 .product-shipping {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 15px;
-  padding-left: 35px;
-  margin: 0 0 15px;
-  display: block;
-  position: relative;
-}
-.product-grid8 .product-shipping:before {
-  content: "";
-  height: 1px;
-  width: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
-  transform: translateY(-50%);
-  position: absolute;
-  top: 50%;
-  left: 0;
-}
-.product-grid8 .title {
-  font-size: 16px;
-  font-weight: 400;
-  text-transform: capitalize;
-  margin: 0 0 30px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid8 .title a {
-  color: #000;
-}
-.product-grid8 .title a:hover {
-  color: #0081c2;
-}
-.product-grid8 .all-deals {
-  display: block;
-  color: #fff;
-  background-color: #2e353b;
-  font-size: 15px;
-  letter-spacing: 1px;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 22px 5px;
-  transition: all 0.5s ease 0s;
-}
-.product-grid8 .all-deals .icon {
-  margin-left: 7px;
-}
-.product-grid8 .all-deals:hover {
-  background-color: #0081c2;
-}
-
-@media only screen and (max-width: 990px) {
-  .product-grid8 {
-    margin-bottom: 30px;
-  }
-}
-/********************* Shopping Demo-9 **********************/
-.product-grid9 {
-  position: relative;
-  font-family: Poppins, sans-serif;
-  z-index: 1;
-}
-.product-grid9 .product-image9 {
-  position: relative;
-}
-.product-grid9 .product-image9 a {
-  display: block;
-}
-.product-grid9 .product-image9 img {
-  width: 100%;
-  height: auto;
-}
-.product-grid9 .pic-1 {
-  opacity: 1;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid9:hover .pic-1 {
-  opacity: 0;
-}
-.product-grid9 .pic-2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 0.5s ease-out 0s;
-}
-.product-grid9:hover .pic-2 {
-  opacity: 1;
-}
-.product-grid9 .product-full-view {
-  color: #505050;
-  background-color: #fff;
-  font-size: 16px;
-  height: 45px;
-  width: 45px;
-  padding: 18px;
-  border-radius: 100px 0 0;
-  display: block;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  transition: all 0.3s ease 0s;
-}
-.product-grid9 .product-full-view:hover {
-  color: #c0392b;
-}
-.product-grid9:hover .product-full-view {
-  opacity: 1;
-}
-.product-grid9 .product-content {
-  padding: 12px 12px 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.product-content .rating {
-  padding: 0;
-  margin: 0 0 7px;
-  list-style: none;
-}
-
-.product-grid9 .rating li {
-  font-size: 12px;
-  color: #ffd200;
-  transition: all 0.3s ease 0s;
-}
-.product-grid9 .rating li.disable {
-  color: rgba(0, 0, 0, 0.2);
-}
-.product-grid9 .title {
-  font-size: 16px;
-  font-weight: 400;
-  text-transform: capitalize;
-  margin: 0 0 3px;
-  transition: all 0.3s ease 0s;
-}
-.product-grid9 .title a {
-  color: rgba(0, 0, 0, 0.5);
-}
-.product-grid9 .title a:hover {
-  color: #c0392b;
-}
-.product-grid9 .price {
-  color: #000;
-  font-size: 17px;
-  margin: 0;
-  display: block;
-  transition: all 0.5s ease 0s;
-}
-.product-grid9:hover .price {
-  opacity: 0;
-}
-.product-grid9 .add-to-cart {
-  display: block;
-  color: #c0392b;
-  font-weight: 600;
-  font-size: 14px;
-  opacity: 0;
-  position: absolute;
-  left: 10px;
-  bottom: -20px;
-  transition: all 0.5s ease 0s;
-}
-.product-grid9:hover .add-to-cart {
-  opacity: 1;
-  bottom: 0;
-}
-
-@media only screen and (max-width: 990px) {
-  .product-grid9 {
     margin-bottom: 30px;
   }
 }
