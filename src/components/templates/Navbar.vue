@@ -1,17 +1,22 @@
 <template>
     <div class="navbar-block">
         <header>
-            <div class="logo">Logo</div>
+            <div class="logo">
+                <router-link to="/">Logo</router-link>
+            </div>
             <i class="material-icons">menu</i>
             <nav>
                 <!-- <div>
                     <a href="/home">Login</a>
                 </div> -->
                 <div>
-                    <router-link to="/about">About</router-link>
+                    <router-link to="/budget">Budget</router-link>
                 </div>
                 <div>
-                    <router-link to="/test">Test</router-link>
+                    <router-link to="/tests">Test</router-link>
+                </div>
+                <div>
+                    <router-link to="/about">About</router-link>
                 </div>
                 <!-- <div>
                     <a href="/home">Our Projects</a>
@@ -20,9 +25,9 @@
                         <a href="/home">Project 2</a>
                     </div>
                 </div> -->
-                <div>
-                    <a href="/home">Contact Us</a>
-                </div>
+                <!-- <div>
+                    <a href="/contact-us">Contact Us</a>
+                </div> -->
                 <!-- <div>
                     <a href="/home">Tests</a>
                     <div>
@@ -36,6 +41,8 @@
             <div class="black"></div>
         </header>
     </div>
+
+    <router-view />
 </template>
 
 <script>

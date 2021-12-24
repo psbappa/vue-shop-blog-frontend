@@ -115,8 +115,15 @@
                                                     
                                                     <tr v-for="(item, index) in expensesDataInTable" :key="index">
                                                         <td>
-                                                        <input v-if="item.edit" type="text" v-model="item.category"  v-on:keyup.enter="item.edit = !item.edit">
-                                                        <span v-else>{{item.category}} </span>
+                                                            <!-- <input v-if="item.edit" type="text" v-model="item.category"  v-on:keyup.enter="item.edit = !item.edit">
+                                                            <span v-else>{{item.category}}</span> -->
+
+                                                            <!-- <pre>
+                                                                Bappa {{ JSON.stringify(item.edit, null, 2) }}
+                                                            </pre> -->
+
+                                                            <input v-if="false" type="text" v-model="item.category">
+                                                            <span v-else>Test - {{item.category}}</span>
                                                         </td>
                                                         <td>
                                                         <input v-if="item.edit" type="text" v-model="item.expenses" v-on:keyup.enter="item.edit = !item.edit">
@@ -191,10 +198,10 @@ export default {
             totalBudget: 5000,
             remainingBudget: '',
             defaultCategories: [
-                { key: 'travelling', value: 'Travelling', expenses: 0, edit: false },
-                { key: 'food', value: 'Food', expenses: 0, edit: false},
-                { key: 'pocket-money', value: 'Pocket Money', expenses: 0, edit: false},
-                { key: 'room-expenses', value: 'Room Expenses', expenses: 0, edit: false},
+                { key: 'travelling', value: 'Travelling', expenses: 0},
+                { key: 'food', value: 'Food', expenses: 0},
+                { key: 'pocket-money', value: 'Pocket Money', expenses: 0},
+                { key: 'room-expenses', value: 'Room Expenses', expenses: 0},
             ],
             expensesDataInTable: [],
             rerenderCount: 0,
