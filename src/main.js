@@ -8,8 +8,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import VueFusionCharts from 'vue-fusioncharts';
-
-// import FusionCharts modules and resolve dependency
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 
