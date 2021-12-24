@@ -2,8 +2,7 @@
     <div id="chart-container">
         <div class="fusion-chart">
             <div class="show-test-data">
-                <span>{{selectedTableValueData}}</span>
-                <!-- <span>Test - {{test}}</span> -->
+                <!-- <span>{{selectedTableValueData}}</span> -->
             </div>
             <fusioncharts
                 :type="type"
@@ -56,8 +55,7 @@
     export default {
         name: 'FusionchartData',
         props: {
-            selectedTableValueData: Array, 
-            test: Array
+            selectedTableValueData: Array,
         },
         data: function () {
             return {

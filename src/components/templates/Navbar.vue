@@ -18,6 +18,9 @@
                 <div>
                     <router-link to="/about">About</router-link>
                 </div>
+                <div>
+                    <router-link to="/shop">Shop</router-link>
+                </div>
                 <!-- <div>
                     <a href="/home">Our Projects</a>
                     <div>

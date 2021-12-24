@@ -123,7 +123,7 @@
                                                             </pre> -->
 
                                                             <input v-if="false" type="text" v-model="item.category">
-                                                            <span v-else>Test - {{item.category}}</span>
+                                                            <span v-else>{{item.category}}</span>
                                                         </td>
                                                         <td>
                                                         <input v-if="item.edit" type="text" v-model="item.expenses" v-on:keyup.enter="item.edit = !item.edit">
@@ -172,7 +172,7 @@
 
         <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
 
-            <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" :test="[{id: 1, name: 'bappa'}, {id: 2, name: 'dey'}]" />
+            <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" />
         </div>
     </div>
 </template>
@@ -294,9 +294,6 @@ export default {
             }
             return sum;
         }
-    },
-    created() {
-        console.log('component updated')
     }
 }
 </script>
