@@ -102,8 +102,10 @@
           <div class="cart-btn" style="position:fixed; right: 40px;z-index: 1000">
             <button type="button" title="Bestel eenvoudig & snel" class="button btn-cart">
               <span>
-                <fa icon="cart-plus" />
-                <span>Add to cart</span>
+                <fa icon="cart-plus" />&nbsp;&nbsp;
+                <span>
+                  <router-link to="/cart">Go to cart</router-link>
+                </span>
               </span>
               <div class="spinner"></div>
             </button>
@@ -242,7 +244,7 @@
       </div>
     </div>
 
-    <div class="static-banner">
+    <!-- <div class="static-banner">
       <div class="tns-brands">
         <div id="brands-home" class="autoplay  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal">
           <div class="item tns-item"><img src="https://www.gobantes.cl/pub/media/wysiwyg/brands/Carrusel-01.jpg" title="Ekoline" /></div>
@@ -257,7 +259,7 @@
           <div class="item tns-item"><img src="https://www.gobantes.cl/pub/media/wysiwyg/brands/Carrusel-06.jpg" title="Legrand" /></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -280,7 +282,7 @@
         },
         setup() {
           const store = useStore();
-          console.log('products', store.state.products)
+          // console.log('products', store.state.products)
           let products = computed(function () {
             return store.state.products
           })

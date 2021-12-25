@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <button @click="addToCart()" class="btn btn-primary btn-block" :disabled="itemAlreadyInCart">
-                        {{itemAlreadyInCart? "Added" : "Add to Cart"}}
+                        {{itemAlreadyInCart? "Added" : "Cart"}}
                     </button>
                     <!-- <a href="" data-tip="Add to Cart">
                         <fa icon="cart-plus" />

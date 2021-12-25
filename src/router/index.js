@@ -3,6 +3,7 @@ import Home from "../components/home/Home";
 import BudgetPlanner from '../components/test/BudgetPlanner/BudgetPlanner'
 import Test from '../components/test/ParentTest'
 import Shop from '../views/shop/Shop.vue'
+import Cart from '../components/shop/Cart.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/shop",
     name: "Shop",
     component: Shop,
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
   },
 ];
 

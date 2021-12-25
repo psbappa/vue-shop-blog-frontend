@@ -1,24 +1,57 @@
 <template>
-    <div class="card">
+    <div class="container">
         <!-- https://codepen.io/mjweaver01/pen/yerzox?editors=1010 -->
-        <div class="card-body">
-            <h5 class="card-title">Your Cart</h5>
+        <div class="container-fluid">
+            <!-- <pre> {{ JSON.stringify(cart, null, 2) }}</pre> -->
             <p v-if="cart.length == 0">
                 Your Cart is Empty
             </p>
+
+            <div v-if="totalPrice > 0" class="cart-content">
+                <div class="cart-body">
+                  <table class="table table-image">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in cart" :key="item.id">
+                        <td class="w-25">
+                          <img :src="item.url" class="img-fluid img-thumbnail" alt="Sheep">
+                        </td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.price}}$</td>
+                        <td class="qty">
+                            <!-- <input type="number" class="form-control" id="input1"> -->
+                            <span class="badge badge-primary badge-pill" style="background: #5f9ea0;">{{item.quantity}}</span>
+                        </td>
+                        <td>178$</td>
+                        <td>
+                            <button @click="removeItem(item)" class="btn btn-danger">
+                                <fa icon="trash-alt" />
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> 
+                  <div class="d-flex justify-content-end">
+                    <h5>Total: <span class="price text-success">${{totalPrice}}</span></h5>
+                  </div>
+                  <div class="cart-footer border-top-0 d-flex justify-content-between" style="float: right;">
+                    <button type="button" class="btn btn-success">Checkout</button>
+                  </div>
+                </div>
+              </div>
         </div>
-        <ul class="list-group list-group-flush">
-            <li v-for="item in cart" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
-                {{item.name}}
-                <span class="badge badge-primary badge-pill">{{item.quantity}}</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Price <b>${{totalPrice}}</b>
-            </li>
-        </ul>
 
         <div class="card-body">
-            <router-link to="/shop" class="btn btn-primary btn-block">Checkout</router-link>
+            <router-link to="/shop" class="btn btn-primary btn-block">Go to shop</router-link>
         </div>
     </div>
 </template>
@@ -29,8 +62,10 @@
 
     export default {
         name: 'Cart',
-        created() {
-            console.log('cart component called')
+        methods: {
+            removeItem(item) {
+                console.log('Item', item, 'totalPrice', this.totalPrice, 'cart', this.cart)
+            }
         },
         setup(){
             const store = useStore();
@@ -54,5 +89,24 @@
 </script>
 
 <style scoped>
+.table-image thead td, .table-image thead th {
+  border: 0;
+  color: #666;
+  font-size: 0.8rem;
+}
+.table-image td, .table-image th {
+  vertical-align: middle;
+  text-align: center;
+}
+.table-image td.qty, .table-image th.qty {
+  max-width: 2rem;
+}
 
+.price {
+  margin-left: 1rem;
+}
+
+.cart-footer {
+  padding-top: 0rem;
+}
 </style>
