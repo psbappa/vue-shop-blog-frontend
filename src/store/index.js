@@ -22,7 +22,7 @@ export default createStore({
       {
         id: 3,
         name: "Erigo",
-        price: 199,
+        price: 100,
         marketPrice: 499,
         shortdesc: "Erigo, Stylish, Dope",
         url: "https://picsum.photos/200/200"
@@ -30,7 +30,7 @@ export default createStore({
       {
         id: 4,
         name: "Ericson",
-        price: 999,
+        price: 500,
         marketPrice: 1599,
         shortdesc: "Ericson, Stylish, Dope",
         url: "https://picsum.photos/200/200"
@@ -38,7 +38,7 @@ export default createStore({
       {
         id: 5,
         name: "Ericson",
-        price: 999,
+        price: 1000,
         marketPrice: 1599,
         shortdesc: "Ericson, Stylish, Dope",
         url: "https://picsum.photos/200/200"
@@ -46,7 +46,7 @@ export default createStore({
       {
         id: 6,
         name: "Ericson",
-        price: 999,
+        price: 200,
         marketPrice: 1599,
         shortdesc: "Ericson, Stylish, Dope",
         url: "https://picsum.photos/200/200"
@@ -54,7 +54,7 @@ export default createStore({
       {
         id: 7,
         name: "Ericson",
-        price: 999,
+        price: 400,
         marketPrice: 1599,
         shortdesc: "Ericson, Stylish, Dope",
         url: "https://picsum.photos/200/200"

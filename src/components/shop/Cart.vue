@@ -20,6 +20,7 @@
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
+                    <!-- <pre>{{ JSON.stringify(cart, null, 2) }}</pre> -->
                     <tbody>
                       <tr v-for="item in cart" :key="item.id">
                         <td class="w-25">
@@ -28,10 +29,10 @@
                         <td>{{item.name}}</td>
                         <td>{{item.price}}$</td>
                         <td class="qty">
-                            <!-- <input type="number" class="form-control" id="input1"> -->
+                            <input type="number" class="form-control" id="input" v-model="item.quantity">
                             <span class="badge badge-primary badge-pill" style="background: #5f9ea0;">{{item.quantity}}</span>
                         </td>
-                        <td>178$</td>
+                        <td>{{item.quantity * item.price}}</td>
                         <td>
                             <button @click="removeItem(item)" class="btn btn-danger">
                                 <fa icon="trash-alt" />
@@ -65,6 +66,7 @@
         methods: {
             removeItem(item) {
                 console.log('Item', item, 'totalPrice', this.totalPrice, 'cart', this.cart)
+                this.cart.splice(item, 1)            //only remove from DOM
             }
         },
         setup(){

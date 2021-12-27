@@ -6,13 +6,10 @@
             </div>
             <i class="material-icons">menu</i>
             <nav>
-                <!-- <div>
-                    <a href="/home">Login</a>
-                </div> -->
                 <div>
                     <router-link to="/budget">Budget</router-link>
                 </div>
-                <div>
+                <div class="hidden">
                     <router-link to="/tests">Test</router-link>
                 </div>
                 <div>
@@ -21,17 +18,17 @@
                 <div>
                     <router-link to="/shop">Shop</router-link>
                 </div>
-                <!-- <div>
+                <div class="hidden">
                     <a href="/home">Our Projects</a>
                     <div>
                         <a href="/home">Project 1</a>
                         <a href="/home">Project 2</a>
                     </div>
-                </div> -->
-                <!-- <div>
+                </div>
+                <div class="hidden">
                     <a href="/contact-us">Contact Us</a>
-                </div> -->
-                <!-- <div>
+                </div>
+                <div class="hidden">
                     <a href="/home">Tests</a>
                     <div>
                         <a href="/home">Link 1</a>
@@ -39,7 +36,7 @@
                         <a href="/home">Link 3</a>
                         <a href="/home">Link 4</a>
                     </div>
-                </div> -->
+                </div>
             </nav>
             <div class="black"></div>
         </header>
@@ -67,6 +64,10 @@ body {
     background-color: #ebebeb;
     overflow-x: hidden;
     text-align: center;
+}
+
+.hidden {
+    display: none;
 }
 
 header {

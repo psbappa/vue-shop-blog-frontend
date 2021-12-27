@@ -104,7 +104,8 @@
               <span>
                 <fa icon="cart-plus" />&nbsp;&nbsp;
                 <span>
-                  <router-link to="/cart">Go to cart</router-link>
+                  <router-link to="/cart">Go to cart</router-link>&nbsp;&nbsp;
+                  <span class="badge badge-primary badge-pill" style="background: #5f9ea0;">{{ this.cart.length }}</span>
                 </span>
               </span>
               <div class="spinner"></div>
@@ -282,7 +283,7 @@
         },
         setup() {
           const store = useStore();
-          // console.log('products', store.state.products)
+          console.log('products views', store.state.cart)
           let products = computed(function () {
             return store.state.products
           })

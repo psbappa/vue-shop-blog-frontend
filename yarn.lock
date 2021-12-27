@@ -8269,6 +8269,11 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
+"tslib@1.10.0":
+  "integrity" "sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.10.0.tgz"
+  "version" "1.10.0"
+
 "tty-browserify@0.0.0":
   "integrity" "sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY="
   "resolved" "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz"
@@ -8584,6 +8589,14 @@
     "lodash" "^4.17.21"
     "semver" "^6.3.0"
 
+"vue-fixed-header@^3.2.15":
+  "integrity" "sha512-PTse41lPNBSW3Is9gHotNY6djmpnKaKA7yZszuVy5Kd9pe0JucEfmmHl7XBJsHlBYBDuhc07wT33sfAEgr9IHw=="
+  "resolved" "https://registry.npmjs.org/vue-fixed-header/-/vue-fixed-header-3.2.15.tgz"
+  "version" "3.2.15"
+  dependencies:
+    "tslib" "1.10.0"
+    "vue" "^2.5.17"
+
 "vue-fusioncharts@^3.2.0":
   "integrity" "sha512-zQYBN7W5VuoDDynOANNk5nIQ00sa3OqkWlQ1W8A5Sl9cfxWWgdZmE5+WfOIMG5xNVXQsmBYjxoYR10fDKZARbw=="
   "resolved" "https://registry.npmjs.org/vue-fusioncharts/-/vue-fusioncharts-3.2.0.tgz"
@@ -8649,6 +8662,11 @@
     "@vue/runtime-dom" "3.2.24"
     "@vue/server-renderer" "3.2.24"
     "@vue/shared" "3.2.24"
+
+"vue@^2.5.17":
+  "integrity" "sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ=="
+  "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
+  "version" "2.6.14"
 
 "vuex@^4.0.2":
   "integrity" "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q=="
