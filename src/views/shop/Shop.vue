@@ -2,14 +2,19 @@
 <!-- https://auth0.com/blog/state-management-in-vue-3-applications/ -->
   <div class="shop-head">
     <div id="topBar">
-      <input type="text" id="search" name="search" class="form-control player-search" placeholder="Search for an item..." autocomplete="off">
+      <div class="ui icon input" style="width: 100%">
+        <input type="text" v-model="searchQuery" id="search" name="search" class="form-control player-search" placeholder="Search for an item..." autocomplete="off" />
+      </div>
       <div class="sortBy">
         <h4>SORT BY:</h4>
-        <select class="form-control">
-          <option>Most Popular</option>
+        <select class="form-control" v-model="filter" v-on:change="change(filter)">
+          <option value="" disabled selected style="display: none;">Please select a filter</option>
+          <option v-for="i in filters" v-bind:key="i">{{i}}</option>
+          <!-- <option>Most Popular</option>
           <option>Price [Lowest to Highest]</option>
           <option>Price [Highest to Lowest]</option>
           <option>Name [A to Z]</option>
+          <option>Name [Z to A]</option> -->
         </select>
       </div>
     </div>
@@ -113,9 +118,7 @@
           </div>
 
           <!-- Products lists section -->
-          <div class="products-lists">
-
-
+          <div class="container">
             <!-- <div class="container">
               <div class="odd-header">
                 <h3 class="h3">Trends</h3>
@@ -231,12 +234,16 @@
               </div>
             </div>
             <hr> -->
-            <div class="container">
-              <div class="even-header">
-                <h3 class="h3">Upcomming - Hover Effect</h3>
+            <div class="products-lists">
+              <!-- <pre> {{ JSON.stringify(searchedProducts, null, 2) }}</pre> -->
+              <div class="row" v-if="searchedProducts">
+                <div class="even-header">
+                  <h3 class="h3">Upcomming</h3>
+                </div>
+                <Product v-for="product in searchedProducts" :product="product" :key="product.id" />
               </div>
-              <div class="row">
-                <Product v-for="product in products" :product="product" :key="product.id" />
+              <div v-else class="no-items">
+                No relevant products searched!...Please try another
               </div>
             </div>
             <hr>
@@ -266,6 +273,7 @@
 
 <script>
     import Product from '../../components/shop/Product.vue'
+    import { ref } from 'vue'
     // import Cart from "../components/Cart.vue";
 
     import { computed } from 'vue'
@@ -278,28 +286,93 @@
         },
         data() {
           return {
-            active: 4 // zero-based slide
+            filters: ["Most Popular","Price [Lowest to Highest]", "Price [Highest to Lowest]", "Name [A to Z]", "Name [Z to A]", "By Date(Newest)", "By Date(Oldest)"],
           }
+        },
+        methods: {
+          change: function(par) {
+            console.log('par', par)
+            switch(par) {
+              case "Price [Lowest to Highest]":
+                return this.sortByPriceLowToHigh();
+              case "Price [Highest to Lowest]":
+                return this.sortByPriceHighToLow();
+              case "Name [A to Z]":
+                return this.sortAlpha();
+              case "Name [Z to A]":
+                return this.sortAlphaZ();
+            }
+          },
+
+          sortByPriceLowToHigh: function() {
+            this.products.sort(function(a, b) {
+              console.log(a.price + '-' + b.price)
+              return a.price - b.price;
+            })
+          },
+          sortByPriceHighToLow: function() {
+            this.products.sort(function(a, b) {
+              console.log(a.price + '-' + b.price)
+              return b.price - a.price;
+            })
+          },
+          sortAlpha: function() {
+            this.products.sort(function(a, b) {
+              var x = a.name.toLowerCase();
+              var y = b.name.toLowerCase();
+              if (x < y) {
+                return -1;
+              }
+              if (x > y) {
+                return 1;
+              }
+              return 0;
+            });
+          },
+          sortAlphaZ: function() {
+            this.products.sort(function(a, b) {
+              var x = a.name.toLowerCase();
+              var y = b.name.toLowerCase();
+              if (y < x) {
+                return -1;
+              }
+              if (y > x) {
+                return 1;
+              }
+              return 0;
+            });
+          },
         },
         setup() {
           const store = useStore();
-          console.log('products views', store.state.cart)
-          
-          // if(store.state.cart.length != 0) {
-            
-          // }
+          const searchQuery = ref("");
           
           let products = computed(function () {
             return store.state.products
+            // return store.state.products.filter(item => {
+            //   return item.name.includes(this.search.toLowerCase())
+            // })
           })
 
           let cart = computed(function() {
             return store.state.cart
           })
 
+          const searchedProducts = computed(() => {
+              return products.value.filter((product) => {
+                return (
+                  product.name
+                    .toLowerCase()
+                    .indexOf(searchQuery.value.toLowerCase()) != -1
+                );
+              });
+          });
+
           return {
             products,
-            cart
+            cart,
+            searchedProducts,
+            searchQuery
           }
         },
     }

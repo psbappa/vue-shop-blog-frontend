@@ -13,7 +13,7 @@ export default createStore({
       },
       {
         id: 2,
-        name: "Kimono",
+        name: "A Kimono",
         price: 50,
         marketPrice: 150,
         shortdesc: "Classy, Stylish, Dope",
@@ -37,7 +37,7 @@ export default createStore({
       },
       {
         id: 5,
-        name: "Ericson",
+        name: "Bags trolley",
         price: 1000,
         marketPrice: 1599,
         shortdesc: "Ericson, Stylish, Dope",
@@ -45,18 +45,18 @@ export default createStore({
       },
       {
         id: 6,
-        name: "Ericson",
+        name: "Marco Polo",
         price: 200,
         marketPrice: 1599,
-        shortdesc: "Ericson, Stylish, Dope",
+        shortdesc: "Marco Polo, Stylish, Dope",
         url: "https://picsum.photos/200/200"
       },
       {
         id: 7,
-        name: "Ericson",
+        name: "Nevia",
         price: 400,
         marketPrice: 1599,
-        shortdesc: "Ericson, Stylish, Dope",
+        shortdesc: "Nevia, Stylish, Dope",
         url: "https://picsum.photos/200/200"
       },
       
