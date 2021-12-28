@@ -13,9 +13,18 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 
 library.add(fas)
 
-const app = createApp(App).component('fa', FontAwesomeIcon)
-app.use(VueFusionCharts, FusionCharts, Charts);         //available from everywhere in your app.
-app.use(router)
-app.use(store)
+// const app = createApp(App).component('fa', FontAwesomeIcon)
+// app.use(VueFusionCharts, FusionCharts, Charts);         //available from everywhere in your app.
+// app.use(router)
+// app.use(store)
 
-app.mount('#app')
+// app.mount('#app')
+
+// Another steps
+
+createApp(App)
+  .use(router)
+  .use(store)
+  .use(VueFusionCharts, FusionCharts, Charts)                       //available from everywhere in your app.
+  .component('fa', FontAwesomeIcon)
+  .mount("#app");
