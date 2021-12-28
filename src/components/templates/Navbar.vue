@@ -29,6 +29,9 @@
                     <a href="/contact-us">Contact Us</a>
                 </div>
                 <div>
+                    <router-link to="/login">Login</router-link>
+                </div>
+                <div>
                     <a href="/home">Tests</a>
                     <div>
                         <router-link to="/axios">Axios</router-link>
