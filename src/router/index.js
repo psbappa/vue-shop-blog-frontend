@@ -4,6 +4,7 @@ import BudgetPlanner from '../components/test/BudgetPlanner/BudgetPlanner'
 import Test from '../components/test/ParentTest'
 import Shop from '../views/shop/Shop.vue'
 import Cart from '../components/shop/Cart.vue'
+import PathNotFound from '../views/shop/PathNotFound.vue'
 
 const routes = [
   {
@@ -37,6 +38,7 @@ const routes = [
     name: "Cart",
     component: Cart,
   },
+  { path: '/:pathMatch(.*)*', component: PathNotFound },
 ];
 
 const router = createRouter({

@@ -28,13 +28,11 @@
                 <div class="hidden">
                     <a href="/contact-us">Contact Us</a>
                 </div>
-                <div class="hidden">
+                <div>
                     <a href="/home">Tests</a>
                     <div>
-                        <a href="/home">Link 1</a>
-                        <a href="/home">Link 2</a>
-                        <a href="/home">Link 3</a>
-                        <a href="/home">Link 4</a>
+                        <router-link to="/axios">Axios</router-link>
+                        <router-link to="/tests">Test</router-link>
                     </div>
                 </div>
             </nav>

@@ -3,7 +3,7 @@
         <!-- https://codepen.io/mjweaver01/pen/yerzox?editors=1010 -->
         <div class="container-fluid">
             <!-- <pre> {{ JSON.stringify(cart, null, 2) }}</pre> -->
-            <p v-if="cart.length == 0">
+            <p v-if="cart.length > 0">
                 Your Cart is Empty
             </p>
 
@@ -29,7 +29,7 @@
                         <td>{{item.name}}</td>
                         <td>{{item.price}}$</td>
                         <td class="qty">
-                            <input type="number" class="form-control" id="input" v-model="item.quantity">
+                            <input type="number" class="form-control" id="input" v-model="item.quantity" @change='change(item)'>
                             <span class="badge badge-primary badge-pill" style="background: #5f9ea0;">{{item.quantity}}</span>
                         </td>
                         <td>{{item.quantity * item.price}}</td>
@@ -65,9 +65,15 @@
         name: 'Cart',
         methods: {
             removeItem(item) {
-                console.log('Item', item, 'totalPrice', this.totalPrice, 'cart', this.cart)
+                // console.log('Item', item, 'totalPrice', this.totalPrice, 'cart', this.cart)
                 this.cart.splice(item, 1)            //only remove from DOM
-            }
+            },
+            change(item) {
+              // console.log('change', item.quantity)
+              if(item.quantity == 0) {
+                this.cart.splice(item, 1)
+              }
+            },
         },
         setup(){
             const store = useStore();

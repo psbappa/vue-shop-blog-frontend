@@ -284,6 +284,11 @@
         setup() {
           const store = useStore();
           console.log('products views', store.state.cart)
+          
+          // if(store.state.cart.length != 0) {
+            
+          // }
+          
           let products = computed(function () {
             return store.state.products
           })
