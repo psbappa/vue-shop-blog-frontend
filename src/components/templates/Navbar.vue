@@ -34,7 +34,7 @@
                 <div>
                     <a href="/home">Tests</a>
                     <div>
-                        <router-link to="/axios">Axios</router-link>
+                        <router-link to="/axios">Movies</router-link>
                         <router-link to="/tests">Test</router-link>
                     </div>
                 </div>
@@ -107,6 +107,7 @@ header > nav > div > a {
     color: #fbfbfb;
     transition: background-color 0.2s ease;
     text-transform: uppercase;
+    text-decoration: unset;
 }
 
 header > nav > div:hover > a {
@@ -262,4 +263,49 @@ p {
         pointer-events: none;
     }
 }
+
+/* Menu link hover underline effects start */
+a {
+  position: relative;
+  /* display: block; */
+  cursor: pointer;
+  padding: 8px 0;
+  color: #fff;
+  text-decoration: none;
+}
+a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
+a:before, a:after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -2px;
+  background: #fff;
+}
+
+a:before {
+  left: 0;
+}
+a:after {
+  right: 0;
+  background: #fff;
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+a:hover:before {
+  background: #fff;
+  width: 100%;
+  transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+a:hover:after {
+  background: transparent;
+  width: 100%;
+  transition: 0s;
+}
+/* Menu link hover underline effects End */
 </style>

@@ -48,7 +48,7 @@
         creditLabel: false,
     });
 
-    FusionCharts.options.creditLabel = false;
+    // FusionCharts.options.creditLabel = false;
 
     // console.log('FusionCharts', FusionCharts);
 
