@@ -1,57 +1,114 @@
 <template>
-    <div class="login">
-        <!-- <h4>Login Test</h4> -->
-        <section>
-            <div class="box" style="margin-top: 5%;">  
-                <div class="square" style="--i:0;"></div>
-                <div class="square" style="--i:1;"></div>
-                <div class="square" style="--i:2;"></div>
-                <div class="square" style="--i:3;"></div>
-                <div class="square" style="--i:4;"></div>
-                <div class="square" style="--i:5;"></div>
-                
-                <div class="container"> 
-                    <div class="form"> 
-                        <h2>LOGIN to get token</h2>
-                        <form action="">
-                            <div class="inputBx">
-                                <input type="text" required="required">
-                                <span>Login</span>
-                                <i class="fas fa-user-circle"></i>
+  <div class="login">
+      <!-- <h4>Login Test</h4> -->
+      <section>
+          <div class="box" style="margin-top: 5%;">  
+              <div class="square" style="--i:0;"></div>
+              <div class="square" style="--i:1;"></div>
+              <div class="square" style="--i:2;"></div>
+              <div class="square" style="--i:3;"></div>
+              <div class="square" style="--i:4;"></div>
+              <div class="square" style="--i:5;"></div>
+              
+              <div class="container"> 
+                  <div class="form"> 
+                      <h2>LOGIN to get token</h2>
+                      <form @submit.prevent="onSubmit" :validation-schema="schema">
+                          <div class="inputBx" :class="{ error: v$.form.email.$errors.length }">
+                              <input type="text" v-model="v$.form.email.$model" name="email" required="required">
+                              <span>Email</span>
+                              <!-- error message -->
+                              <div class="input-errors" v-for="(error, index) of v$.form.email.$errors" :key="index">
+                                <div class="error-msg">{{ error.$message }}</div>
+                              </div>
+                          </div>
+                          <div class="inputBx password" :class="{ error: v$.form.password.$errors.length }">
+                              <input id="password-input" type="password" v-model="v$.form.password.$model" name="password" required="required">
+                              <span>Password</span>
+                              <a href="#" class="password-control" onclick="show_hide_password;"></a>
+                              <!-- error message -->
+                              <div class="input-errors" v-for="(error, index) of v$.form.password.$errors" :key="index">
+                                <div class="error-msg">{{ error.$message }}</div>
+                              </div>
+                              <i class="fas fa-key"></i>
+                          </div>
+                          <label class="remember"><input type="checkbox">
+                          Remember</label>
+                          <div class="inputBx">
+                            <button class="btn btn-primary">Login</button>
+                            <!-- <button class="btn btn-primary btn-block" :disabled="loading">
+                              <span
+                                v-show="loading"
+                                class="spinner-border spinner-border-sm"
+                              ></span>
+                              <span>Login</span>
+                            </button>  -->
+                          </div>
+
+                          <div class="form-group">
+                            <div v-if="message" class="alert alert-danger" role="alert">
+                              {{ message }}
                             </div>
-                            <div class="inputBx password">
-                                <input id="password-input" type="password" name="password" required="required">
-                                <span>Password</span>
-                                <a href="#" class="password-control" onclick="show_hide_password;"></a>
-                                <i class="fas fa-key"></i>
-                            </div>
-                            <label class="remember"><input type="checkbox">
-                            Remember</label>
-                            <div class="inputBx">
-                                <input type="submit" value="Log in" disabled> 
-                            </div>
+                          </div>
                         </form>
-                        <p>Forgot password? <a href="#">Click Here</a></p>
-                        <p>Don't have an account <router-link to="/registration">Sign Up</router-link></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+                      <p>Forgot password? <a href="#">Click Here</a></p>
+                      <p>Don't have an account <router-link to="/registration">Sign Up</router-link></p>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'Login',
-        created() {
-            console.log('created')
+  // import { Form, Field, ErrorMessage } from "vee-validate";
+  import useVuelidate from '@vuelidate/core'
+  import { required, email, minLength } from '@vuelidate/validators'
+  // import * as yup from "yup";
+
+  export default {
+    setup () {
+      return { v$: useVuelidate() }
+    },
+    name: 'Login',
+    data() {
+      // const schema = yup.object().shape({
+      //   email: yup.string().required("Email is required!"),
+      //   password: yup.string().required("Password is required!"),
+      // });
+
+      return {
+        form: {
+          email: '',
+          password: '',
         },
-        methods: {
-            show_hide_password() {
-                console.log('toggle password')
-            }
+        loading: false,
+        message: "",
+        // schema,
+      };
+    },
+    validations() {
+      return {
+        form: {
+          email: {
+            required, email 
+          },
+          password: {
+              required, 
+              min: minLength(6)
+          },
+        },
+      }
+    },
+    created() {
+        console.log('created')
+    },
+    methods: {
+        show_hide_password() {
+            console.log('toggle password')
         }
     }
+  }
 </script>
 
 <style scoped>
@@ -284,4 +341,5 @@ section {
 }
 /* Login form template End */
 /* https://codepen.io/DivineBlow/pen/bGwYYPQ */
+/* https://www.bezkoder.com/vue-3-authentication-jwt/ */
 </style>

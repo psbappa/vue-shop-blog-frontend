@@ -11,20 +11,16 @@ import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+
 library.add(fas)
-
-// const app = createApp(App).component('fa', FontAwesomeIcon)
-// app.use(VueFusionCharts, FusionCharts, Charts);         //available from everywhere in your app.
-// app.use(router)
-// app.use(store)
-
-// app.mount('#app')
-
-// Another steps
 
 createApp(App)
   .use(router)
   .use(store)
   .use(VueFusionCharts, FusionCharts, Charts)                       //available from everywhere in your app.
   .component('fa', FontAwesomeIcon)
+  .use(VueToast)
   .mount("#app");

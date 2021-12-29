@@ -9,7 +9,7 @@
             <div v-if="editing" class="body-section" style="width: 100%; display: table; background: #b3946f">
                 <div style="display: table-row; height: 100px;">
                     <!-- Left side - Add Edit Form -->
-                    <div style="width: 42%; display: table-cell; padding: 1rem;">
+                    <div style="width: 30%; display: table-cell; padding: 1rem;">
                         <div class="form-body">
                             <form @submit.prevent="submitAddEditForm" name="contact-form" novalidate class="budget-add-edit" action="">
                                 <div class="add-category" style="display: table">
@@ -78,10 +78,6 @@
                                 <div class="row">
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="box-of-stuff">
-                                            <div class="form-floating mb-3">
-                                                <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="totalBudget" />
-                                                <label for="floatingInput">Total Budget</label>
-                                            </div>
                                             <p v-if="formErrors.length" class="text-danger">
                                                 <b>Please correct the error</b>
                                                 <ul style="list-style-type:none;">
@@ -90,6 +86,11 @@
                                                     </li>
                                                 </ul>
                                             </p>
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput" placeholder="Total Income" v-model="totalBudget" />
+                                                <label for="floatingInput">Total Budget</label>
+                                            </div>
+                                            
                                             <form @submit.prevent="addItem(this.selectedCategoryKey, this.selectedCategoryValue)" method="post">
                                                 <div class="form-floating mb-3">
                                                     <input type="number" class="form-control" id="floatingInput" v-model="expenses">
@@ -151,7 +152,8 @@
                                                 </table>
 
                                                 <div class="show-chart-btn">
-                                                    <button class="togglebutton" v-on:click="showChartSection">Show chart</button>
+                                                    <button class="btn btn-primary" v-on:click="showChartSection">Show chart</button>&nbsp;&nbsp;
+                                                    <button class="btn btn-warning" v-on:click="clearTableChart">Clear data</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,8 +172,7 @@
             </div>
         </div>
 
-        <div v-if="isChartTableShow" class="budget-section" style="background-color: #86d393">
-
+        <div v-if="isChartTableShow & expensesDataInTable.length > 0" class="budget-section" style="background-color: #86d393">
             <FusionChartData :selectedTableValueData="expensesDataInTable" :key="this.rerenderCount" />
         </div>
     </div>
@@ -195,7 +196,7 @@ export default {
             isResultTableShow: false,
             isChartTableShow: false,
             expenses: '',
-            totalBudget: 5000,
+            totalBudget: '',
             remainingBudget: '',
             defaultCategories: [
                 { key: 'travelling', value: 'Travelling', expenses: 0},
@@ -244,29 +245,40 @@ export default {
 
             if(!this.expenses) {
                 this.formErrors.push('Enter your expenses')
-            } else {
+            } else if(!this.totalBudget) {
+                this.formErrors.push('Enter Total expenses')
+            }
+            else {
                 let checkItem = [{
                     key,
                     category: value,
                     expenses: this.expenses
                 }]
                 this.isResultTableShow = true
-                this.rerenderCount++
-                
-                let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
-                let isItemInTable = itemInTable.length > 0
+                if(this.expensesDataInTable) {
+                    let itemInTable = this.expensesDataInTable.filter(item => item.key === key)
+                    let isItemInTable = itemInTable.length > 0
 
-                if(isItemInTable === false) {
-                    this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
-                } else {
-                    this.expensesDataInTable.filter(item => {
-                        if(item.key === checkItem[0].key) {
-                            item.expenses += checkItem[0].expenses
-                        }
-                    })
+                    if(isItemInTable === false) {
+                        this.expensesDataInTable.push({'key':this.selectedCategoryValue.replace(/\s+/g, '-').toLowerCase(), 'category': this.selectedCategoryValue, 'expenses': this.expenses})
+                        this.$toast.open({
+                            message: "Item Added Successfully",
+                            type: "success",
+                            duration: 5000,
+                            dismissible: true
+                        })
+                    } else {
+                        this.expensesDataInTable.filter(item => {
+                            if(item.key === checkItem[0].key) {
+                                item.expenses += checkItem[0].expenses
+                            }
+                        })
+                    }
+
+                    this.expenses = ''
                 }
-
-                this.expenses = ''
+                
+                this.rerenderCount++
             }
         },
         editItem(val) {
@@ -277,14 +289,32 @@ export default {
             // this.expensesDataInTable.splice(index, 1)            //only remove from DOM
             if (confirm('Sure to delete')) {
                 this.expensesDataInTable = this.expensesDataInTable.filter((item) => item.key != selData.key)
+                this.$toast.open({
+                    message: "Deleted Successfully",
+                    type: "warning",
+                    duration: 5000,
+                    dismissible: true
+                })
                 this.rerenderCount--
             }
         },
         showChartSection() {
-            if(this.expensesDataInTable.length > 0) {
+            if(this.expensesDataInTable.length != 0) {
                 this.isChartTableShow = !this.isChartTableShow
+            } else {
+                this.$toast.open({
+                    message: "Empty data",
+                    type: "success",
+                    duration: 5000,
+                    dismissible: true
+                })
             }
         },
+        clearTableChart() {
+            this.expensesDataInTable = []
+            this.rerenderCount++
+
+        }
     },
     computed: {
         totalExpenses() {
@@ -340,12 +370,12 @@ input[type=submit]:hover {
     display: none;
 }
 
-.togglebutton{
+/* .togglebutton{
     padding : 0.1em;
     background-color:#2196F3;
     color:#FFF;
     cursor:pointer;
-}
+} */
 
 /* Button design Start */
 

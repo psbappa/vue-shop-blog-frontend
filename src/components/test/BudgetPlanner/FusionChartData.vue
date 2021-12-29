@@ -98,17 +98,16 @@
                 chart.chartType(type);
             }
         },
-        computed: {
-            
-        },
         created: function() {
-            let itemArr = this.selectedTableValueData.map(item => {
+            if(this.selectedTableValueData) {
+                let itemArr = this.selectedTableValueData.map(item => {
                 return {
                     label: item.category,
                     value: item.expenses,
                     }
                 });
-            this.dataSource.data = itemArr
+                this.dataSource.data = itemArr
+            }
         },
         watch: { 
             selectedTableValueData: function(newVal, oldVal) { // watch it
