@@ -1,168 +1,195 @@
 <template>
-    <div class="movies">
-      <div class="container1">
-        <Header @clicked="addProjectChild" />
-        <div class="row show-grid">
-          <div class="col-lg-8 col-lg-pull-4 col-md-8 col-md-pull-0 col-sm-8 col-sm-pull-4">
-            <!-- Main -->
-            <!-- <pre>{{ JSON.stringify(work, null, 2) }}</pre> -->
-            <main role="main">
-                <ul class="tasks">
-                  <div v-for="(item, index) in work" :key="index">
-                    <li id="task-0" style="width: 130%;">
-                    <h2><span class="text-warnign">{{ item.id }} . </span>{{ item.workFor }}</h2>
-                    <div class="timer">
-                      <p class="timer-label">Total time spend</p>
-                      <p class="timer-text"><span class="hours">{{ item.hours.hh }}</span>:<span class="minutes">{{ item.hours.mm }}</span></p>
-                    </div>
-                    <button v-if="isLogDataForm" @click="showLogDataForm({status: false, id: item.id})" class="btn stop">off</button>
-                    <button v-else @click="showLogDataForm({status: true, id: item.id})" class="btn start">Log Time</button>
-                    <button @click="removeItem(index)" class="delete-btn"><fa icon="trash" /></button>
-                  </li>
-                </div>
-                <span>total time:</span>
-                <strong><span class='text-primary'>{{totalTime}}/-</span></strong>
-                   
-                </ul>
-            </main>
-            <!-- End main-->
+  <div class="movies">
+    <div class="container1">
+      <Header @clicked="addProjectChild" />
+      <div class="row show-grid">
+        <div class="col-lg-8 col-lg-pull-4 col-md-8 col-md-pull-0 col-sm-8 col-sm-pull-4">
+          <!-- Main -->
+          <!-- <pre>{{ JSON.stringify(work, null, 2) }}</pre> -->
+          <main role="main">
+              <ul class="tasks">
+                <div v-for="(item, index) in work" :key="index">
+                  <li id="task-0" style="width: 130%;">
+                  <h2><span class="text-warnign">{{ item.id }} . </span>{{ item.workFor }}</h2>
+                  <div class="timer">
+                    <p class="timer-label">Total time spend</p>
+                    <p class="timer-text"><span class="hours">{{ item.hours.hh ? item.hours.hh : '00'}}</span>:<span class="minutes">{{ item.hours.mm ? item.hours.mm : '00' }}</span></p>
+                  </div>
+                  <button v-if="isLogDataForm" @click="showLogDataForm({status: false, id: item.id})" class="btn stop">off</button>
+                  <button v-else @click="showLogDataForm({status: true, id: item.id})" class="btn start">Log Time</button>
+                  <button @click="removeItem(item)" class="delete-btn"><fa icon="trash" /></button>
+                </li>
+              </div>
+              <span>total time:</span>
+              <strong><span class='text-primary'>{{totalTime}}</span>&nbsp;&nbsp;Min.</strong>
+                  
+              </ul>
+          </main>
+          <!-- End main-->
+        </div>
+        <div class="col-lg-4 col-lg-push-8 col-md-4 col-md-push-0 col-sm-4 col-sm-push-8">
+          <div v-if="isLogDataForm" class="log-data-form">
+            <h4>Log data</h4>
+            <form>
+              <button @click.prevent="saveTimeSpend(this.passedIdToForm)">save</button>
+              <div class="">
+                <label>Choose hours</label>
+                <vue-timepicker :format="datTimeFormat" v-model="hoursForTask"></vue-timepicker>
+              </div>
+            </form>
           </div>
-          <div class="col-lg-4 col-lg-push-8 col-md-4 col-md-push-0 col-sm-4 col-sm-push-8">
-            <div v-if="isLogDataForm" class="log-data-form">
-              <h4>Log data</h4>
-              <form>
-                <button @click.prevent="saveTimeSpend">save</button>
-                <div class="">
-                  <label>Choose hours</label>
-                  <vue-timepicker :format="datTimeFormat" v-model="hoursForTask"></vue-timepicker>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div> 
-      </div>
+        </div>
+      </div> 
     </div>
+  </div>
 </template>
 
 <script>
-    import VueTimepicker from 'vue3-timepicker/src/VueTimepicker.vue'
-    import axios from 'axios'
-    import Header from '../Movies/Header.vue'
+import VueTimepicker from 'vue3-timepicker/src/VueTimepicker.vue'
+import axios from 'axios'
+import Header from '../Movies/Header.vue'
+import moment from 'moment'
 
-    export default {
-        name: 'Movies',
-        components: {
-          VueTimepicker,
-          Header
-        },
-        data() {
-          return {
-            toggleLogFormData: false,
-              isLogDataForm: false,
-              work: [],
-              passedIdToForm: '',
-            }
-        },
-        mounted () {
-            // this.bitCoinData();
-            // this.utellyMovieApi();
-            // this.spotifyApi();
-        },
-        methods: {
-          showLogDataForm(isLogDataForm) {
-            this.isLogDataForm = isLogDataForm.status
-            this.passedIdToForm = isLogDataForm.id
-          },
-          addProjectChild(value) {
-            this.work = value
-          },
-          removeItem(index) {
-            this.work.splice(index, 1);
-            // if (confirm('Sure to delete')) {
-            //     this.work = this.work.filter((item) => item.id != selData.id)
-            //     this.$toast.open({
-            //         message: "Deleted Successfully",
-            //         type: "warning",
-            //         duration: 5000,
-            //         dismissible: true
-            //     })
-            // }
-            console.log('Final Tasks: ', this.work)
-          },
-          saveTimeSpend() {
-            this.work.filter(item => {
-              if(item.id === this.passedIdToForm) {
-                item.hours.hh = this.hoursForTask.HH
-                item.hours.mm = this.hoursForTask.mm
+export default {
+    name: 'Movies',
+    components: {
+      VueTimepicker,
+      Header
+    },
+    created: function () {
+      this.moment = moment;
+    },
+    data() {
+      return {
+        toggleLogFormData: false,
+          isLogDataForm: false,
+          work: [],
+          passedIdToForm: '',
+          timeEntries: []
+        }
+    },
+    mounted () {
+        // this.bitCoinData();
+        // this.utellyMovieApi();
+        // this.spotifyApi();
+    },
+    methods: {
+      showLogDataForm(isLogDataForm) {
+        this.isLogDataForm = isLogDataForm.status
+        this.passedIdToForm = isLogDataForm.id
+      },
+      addProjectChild(value) {
+        this.work = value
+      },
+      removeItem(item) {
+        console.log('Delete', item, )
+
+        // this.work.splice(index, 1);
+        // if (confirm('Sure to delete')) {
+        //     this.work = this.work.filter((item) => item.id != selData.id)
+        //     this.$toast.open({
+        //         message: "Deleted Successfully",
+        //         type: "warning",
+        //         duration: 5000,
+        //         dismissible: true
+        //     })
+        // }
+        // console.log('Final Tasks: ', this.work)
+      },
+      saveTimeSpend(id) {
+        if(this.work) {
+          let itemInTable = this.work.filter(item => item.id === id)
+          console.log('Tasks is: ', this.work, 'Tasks length: ', this.work.length, "Selected Id: ", id, 'Selected Hours: ', this.hoursForTask.HH , 'Selected Minutes: ', this.hoursForTask.mm)
+          console.log('Is present: ', itemInTable)
+
+        }
+
+
+        // this.work.filter(item => {
+        //   if(item.id === this.passedIdToForm) {
+        //     item.hours.hh = this.hoursForTask.HH
+        //     item.hours.mm = this.hoursForTask.mm
+
+        //     let time = item.hours.hh + ':' + item.hours.mm
+        //     this.timeEntries.push({duration: time})
+        //     this.hoursForTask = ''
+        //   }
+
+        // })
+      },
+
+      // Unused methods start---------
+      bitCoinData() {
+          axios
+              .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+              .then(response => (
+                  console.log('Response: ', response.data.bpi)
+              ))
+              .catch(error => console.log(error))
+      },
+      utellyMovieApi() {
+          axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+          var options = {
+              method: 'GET',
+              url: 'http://www.omdbapi.com/?i=tt3896198&apikey=952d00d0',
+              // params: {term: 'bojack', country: 'uk'},
+              headers: {
+                  // 'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
+                  // 'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
+                  
+                  "Access-Control-Allow-Origin": "*",
               }
-            })
+          };
 
-            this.work.map(e => {
-              console.log('e', e.hours)
-            })
-          },
-          // Unused methods start---------
-          bitCoinData() {
-              axios
-                  .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-                  .then(response => (
-                      console.log('Response: ', response.data.bpi)
-                  ))
-                  .catch(error => console.log(error))
-          },
-          utellyMovieApi() {
-              axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
-              var options = {
-                  method: 'GET',
-                  url: 'http://www.omdbapi.com/?i=tt3896198&apikey=952d00d0',
-                  // params: {term: 'bojack', country: 'uk'},
-                  headers: {
-                      // 'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
-                      // 'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
-                      
-                      "Access-Control-Allow-Origin": "*",
-                  }
+          axios.request(options).then(function (response) {
+              console.log('utellyMovieApi', response);
+          }).catch(function (error) {
+              console.error('utellyMovieApi Error', error);
+          });
+      },
+      spotifyApi() {
+          var options = {
+              method: 'GET',
+              // url: 'https://spotifystefan-skliarovv1.p.rapidapi.com/listCategories',
+              url: 'http://localhost:8080/',
+              headers: {
+                  'content-type': 'application/x-www-form-urlencoded',
+                  'x-rapidapi-host': 'Spotifystefan-skliarovV1.p.rapidapi.com',
+                  'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
+              },
+              data: {accessToken: '29946401b8b74433b52673e9a9fcc07a'}
               };
 
               axios.request(options).then(function (response) {
-                  console.log('utellyMovieApi', response);
+                  console.log(response.data);
               }).catch(function (error) {
-                  console.error('utellyMovieApi Error', error);
+                  console.error(error);
               });
-          },
-          spotifyApi() {
-              var options = {
-                  method: 'GET',
-                  // url: 'https://spotifystefan-skliarovv1.p.rapidapi.com/listCategories',
-                  url: 'http://localhost:8080/',
-                  headers: {
-                      'content-type': 'application/x-www-form-urlencoded',
-                      'x-rapidapi-host': 'Spotifystefan-skliarovV1.p.rapidapi.com',
-                      'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
-                  },
-                  data: {accessToken: '29946401b8b74433b52673e9a9fcc07a'}
-                  };
+      },
+      // Unused methods End---------
+    },
+    computed: {
+      totalTime() {
+        let totalTime = 0
+        var timeInMinutes = ''
+        let timeEntries = this.timeEntries;
 
-                  axios.request(options).then(function (response) {
-                      console.log(response.data);
-                  }).catch(function (error) {
-                      console.error(error);
-                  });
-          },
-            // Unused methods End---------
-        },
-        computed: {
-          totalTime() {
-            let total = 0
-            console.log('total: ', this.work)
-            // for (let i = 0; i < this.work.length; i++){
-            //     total += parseInt(this.expensesDataInTable[i].expenses);
-            // }
-            return total;
-          }
+        timeEntries.filter(item => {
+          timeEntries = item.duration
+
+          timeInMinutes = convertH2M(timeEntries);
+        })
+
+        function convertH2M(timeEntries){
+          var timeParts = timeEntries.toString().split(":");
+          return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
         }
+
+        return timeInMinutes;
+      }
     }
+}
 </script>
 
 <style scoped>

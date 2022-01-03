@@ -23,7 +23,7 @@
         },
         methods: {
             submitProject() {
-                this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'}, counter: '1' })
+                this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'} })
                 this.$emit('clicked', this.tasks)
             }
         }
