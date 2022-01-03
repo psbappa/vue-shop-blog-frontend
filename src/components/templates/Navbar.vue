@@ -34,7 +34,7 @@
                 <div>
                     <a href="/home">Tests</a>
                     <div>
-                        <router-link to="/axios">Movies</router-link>
+                        <router-link to="/axios">Daily Tasks</router-link>
                         <router-link to="/tests">Test</router-link>
                     </div>
                 </div>

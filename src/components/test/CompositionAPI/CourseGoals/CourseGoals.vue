@@ -21,9 +21,9 @@
         setup() {
             const goals = ref([]);
             const filteredGoals = computed(function() {
-            return goals.value.filter(
-                (goal) => !goal.text.includes("Angular") && !goal.text.includes("React")
-            );
+                return goals.value.filter(
+                    (goal) => !goal.text.includes("Angular") && !goal.text.includes("React")
+                );
             });
             function addGoal(text) {
                 const newGoal = {

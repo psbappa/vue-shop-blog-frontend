@@ -1,33 +1,33 @@
 <template>
-    <div class="movies-header">
-        <!-- Header -->
-        <header role="banner">
-            <h1>Daily Schedule</h1>
-            <form class="task-form" @submit.prevent="submitProject">
-                <input type="text" v-model="addedNewTask" name="task" placeholder="Enter task name">
-                <input type="submit" value="Submit">
-            </form>
-        </header>
-        <!-- End header -->
-    </div>
+  <div class="movies-header">
+    <!-- Header -->
+    <header role="banner">
+      <h1>Daily Schedule</h1>
+      <form class="task-form" @submit.prevent="submitProject">
+        <input type="text" v-model="addedNewTask" name="task" placeholder="Enter task name">
+        <input type="submit" value="Submit">
+      </form>
+    </header>
+    <!-- End header -->
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'Header',
-        data() {
-            return {
-                tasks: [],
-                counter: 1,
-            }
-        },
-        methods: {
-            submitProject() {
-                this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'} })
-                this.$emit('clicked', this.tasks)
-            }
-        }
+  export default {
+    name: 'Header',
+    data() {
+      return {
+        tasks: [],
+        counter: 1,
+      }
+    },
+    methods: {
+      submitProject() {
+        this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'} })
+        this.$emit('clicked', this.tasks)
+      }
     }
+  }
 </script>
 
 <style scoped>

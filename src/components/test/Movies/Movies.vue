@@ -46,7 +46,6 @@
 
 <script>
 import VueTimepicker from 'vue3-timepicker/src/VueTimepicker.vue'
-import axios from 'axios'
 import Header from '../Movies/Header.vue'
 import moment from 'moment'
 
@@ -61,17 +60,12 @@ export default {
     },
     data() {
       return {
-        toggleLogFormData: false,
+          toggleLogFormData: false,
           isLogDataForm: false,
           work: [],
           passedIdToForm: '',
           timeEntries: []
         }
-    },
-    mounted () {
-        // this.bitCoinData();
-        // this.utellyMovieApi();
-        // this.spotifyApi();
     },
     methods: {
       showLogDataForm(isLogDataForm) {
@@ -99,94 +93,37 @@ export default {
       saveTimeSpend(id) {
         if(this.work) {
           let itemInTable = this.work.filter(item => item.id === id)
-          console.log('Tasks is: ', this.work, 'Tasks length: ', this.work.length, "Selected Id: ", id, 'Selected Hours: ', this.hoursForTask.HH , 'Selected Minutes: ', this.hoursForTask.mm)
-          console.log('Is present: ', itemInTable)
-
+          // console.log('Tasks is: ', this.work, 'Tasks length: ', this.work.length, "Selected Id: ", id, 'Selected Hours: ', this.hoursForTask.HH , 'Selected Minutes: ', this.hoursForTask.mm)
+          // console.log('This to be updated only: ', itemInTable[0].hours)
+          itemInTable[0].hours.hh = this.hoursForTask.HH
+          itemInTable[0].hours.mm = this.hoursForTask.mm
         }
-
-
-        // this.work.filter(item => {
-        //   if(item.id === this.passedIdToForm) {
-        //     item.hours.hh = this.hoursForTask.HH
-        //     item.hours.mm = this.hoursForTask.mm
-
-        //     let time = item.hours.hh + ':' + item.hours.mm
-        //     this.timeEntries.push({duration: time})
-        //     this.hoursForTask = ''
-        //   }
-
-        // })
+        // console.log('After Saved: ', this.work)
       },
-
-      // Unused methods start---------
-      bitCoinData() {
-          axios
-              .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-              .then(response => (
-                  console.log('Response: ', response.data.bpi)
-              ))
-              .catch(error => console.log(error))
-      },
-      utellyMovieApi() {
-          axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
-          var options = {
-              method: 'GET',
-              url: 'http://www.omdbapi.com/?i=tt3896198&apikey=952d00d0',
-              // params: {term: 'bojack', country: 'uk'},
-              headers: {
-                  // 'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
-                  // 'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
-                  
-                  "Access-Control-Allow-Origin": "*",
-              }
-          };
-
-          axios.request(options).then(function (response) {
-              console.log('utellyMovieApi', response);
-          }).catch(function (error) {
-              console.error('utellyMovieApi Error', error);
-          });
-      },
-      spotifyApi() {
-          var options = {
-              method: 'GET',
-              // url: 'https://spotifystefan-skliarovv1.p.rapidapi.com/listCategories',
-              url: 'http://localhost:8080/',
-              headers: {
-                  'content-type': 'application/x-www-form-urlencoded',
-                  'x-rapidapi-host': 'Spotifystefan-skliarovV1.p.rapidapi.com',
-                  'x-rapidapi-key': 'dc81d997dcmshe98c1d25b263992p1ea820jsn27e716468128'
-              },
-              data: {accessToken: '29946401b8b74433b52673e9a9fcc07a'}
-              };
-
-              axios.request(options).then(function (response) {
-                  console.log(response.data);
-              }).catch(function (error) {
-                  console.error(error);
-              });
-      },
-      // Unused methods End---------
     },
     computed: {
       totalTime() {
-        let totalTime = 0
-        var timeInMinutes = ''
-        let timeEntries = this.timeEntries;
+        // let totalTime = 0
+        // var timeInMinutes = ''
 
-        timeEntries.filter(item => {
-          timeEntries = item.duration
-
-          timeInMinutes = convertH2M(timeEntries);
+        let timeEntries = this.work.filter(item => {
+          console.log('computed: ', item.hours)
         })
 
-        function convertH2M(timeEntries){
-          var timeParts = timeEntries.toString().split(":");
-          return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
-        }
+        // let timeEntries = this.timeEntries;
 
-        return timeInMinutes;
+        // timeEntries.filter(item => {
+        //   timeEntries = item.duration
+
+        //   timeInMinutes = convertH2M(timeEntries);
+        // })
+
+        // function convertH2M(timeEntries){
+        //   var timeParts = timeEntries.toString().split(":");
+        //   return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
+        // }
+
+        return timeEntries;
       }
     }
 }
