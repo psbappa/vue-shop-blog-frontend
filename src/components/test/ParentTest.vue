@@ -8,7 +8,7 @@
                 <Data />
               </div>
               <div class="column" style="background-color:#b4c571;">
-                
+                <CourseGoals />
               </div>
             </div>
         </div>
@@ -60,6 +60,7 @@
     import HttpPostRequest from '../test/Axios/HttpPostRequest.vue'
     import LifeCycle from '../test/LifeCycle.vue'
     import Data from '../test/CompositionAPI/Data.vue'
+    import CourseGoals from './CompositionAPI/CourseGoals/CourseGoals.vue'
 
     export default {
         name: 'ParentTest',
@@ -71,6 +72,7 @@
             HttpPostRequest,
             LifeCycle,
             Data,
+            CourseGoals
         },
         data() {
             return {
