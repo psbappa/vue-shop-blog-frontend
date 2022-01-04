@@ -3,7 +3,7 @@
     <!-- Header -->
     <header role="banner">
       <h1>Daily Schedule</h1>
-      <form class="task-form" @submit.prevent="submitProject">
+      <form class="task-form" @submit.prevent="submitTaskSchedule">
         <input type="text" v-model="addedNewTask" name="task" placeholder="Enter task name">
         <input type="submit" value="Submit">
       </form>
@@ -13,20 +13,50 @@
 </template>
 
 <script>
+  import { ref } from "vue";
+
   export default {
-    name: 'Header',
-    data() {
-      return {
-        tasks: [],
-        counter: 1,
+    // emits: ["get-task-schedule"],
+    setup(_, context) {
+      const addedNewTask = ref();
+      const invalidInput = ref(false);
+
+      // watch(invalidInput, function (val) {
+      //   if (val) {
+      //     console.log("Analytics: Invalid Input");
+      //   }
+      // });
+
+      function submitTaskSchedule() {
+        invalidInput.value = false;
+        if (addedNewTask.value === "") {
+          invalidInput.value = true;
+          return;
+        }
+
+        context.emit("get-task-schedule", addedNewTask.value);
+        addedNewTask.value = "";
       }
-    },
-    methods: {
-      submitProject() {
-        this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'} })
-        this.$emit('clicked', this.tasks)
+
+      return {
+        addedNewTask,
+        invalidInput,
+        submitTaskSchedule
       }
     }
+
+    // data() {
+    //   return {
+    //     tasks: [],
+    //     counter: 1,
+    //   }
+    // },
+    // methods: {
+    //   submitProject() {
+    //     this.tasks.push({id: this.counter++ , workFor: this.addedNewTask, hours: {hh: '00', mm: '00'} })
+    //     this.$emit('clicked', this.tasks)
+    //   }
+    // }
   }
 </script>
 

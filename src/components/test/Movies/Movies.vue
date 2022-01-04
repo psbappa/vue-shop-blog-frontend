@@ -1,29 +1,31 @@
 <template>
   <div class="movies">
-    <div class="container1">
-      <Header @clicked="addProjectChild" />
-      <div class="row show-grid">
+    <Header @get-task-schedule="addTask" />
+    <div class="display-section">
+      <div class="row show-grid" style="width: 85rem;">
         <div class="col-lg-8 col-lg-pull-4 col-md-8 col-md-pull-0 col-sm-8 col-sm-pull-4">
           <!-- Main -->
-          <!-- <pre>{{ JSON.stringify(work, null, 2) }}</pre> -->
+          <!-- <pre>{{ JSON.stringify(filteredTasks, null, 2) }}</pre> -->
           <main role="main">
-              <ul class="tasks">
-                <div v-for="(item, index) in work" :key="index">
-                  <li id="task-0" style="width: 130%;">
-                  <h2><span class="text-warnign">{{ item.id }} . </span>{{ item.workFor }}</h2>
-                  <div class="timer">
-                    <p class="timer-label">Total time spend</p>
-                    <p class="timer-text"><span class="hours">{{ item.hours.hh ? item.hours.hh : '00'}}</span>:<span class="minutes">{{ item.hours.mm ? item.hours.mm : '00' }}</span></p>
-                  </div>
-                  <button v-if="isLogDataForm" @click="showLogDataForm({status: false, id: item.id})" class="btn stop">off</button>
-                  <button v-else @click="showLogDataForm({status: true, id: item.id})" class="btn start">Log Time</button>
-                  <button @click="removeItem(item)" class="delete-btn"><fa icon="trash" /></button>
-                </li>
-              </div>
-              <span>total time:</span>
-              <strong><span class='text-primary'>{{totalTime}}</span>&nbsp;&nbsp;Min.</strong>
-                  
-              </ul>
+            <ul class="tasks">
+              <div v-for="(item, index) in filteredTasks" :key="index">
+                <li id="task-0" style="width: 130%;">
+                <h2><span class="text-warnign">{{ item.id }} . </span>{{ item.text }}</h2>
+                <div class="timer">
+                  <p class="timer-label">Time spend</p>
+                  <p class="timer-text"><span class="hours">{{ item.hours.hh ? item.hours.hh : '00'}}</span>:<span class="minutes">{{ item.hours.mm ? item.hours.mm : '00' }}</span></p>
+                </div>
+                <button v-if="isLogDataForm" @click="showLogDataForm({status: false, id: item.id})" class="btn stop">off</button>
+                <button v-else @click="showLogDataForm({status: true, id: item.id})" class="btn start">Log Time</button>
+                <button @click="removeItem(item)" class="delete-btn"><fa icon="trash" /></button>
+              </li>
+            </div>
+            <span>total time:</span>
+            <strong><span class='text-primary'>
+              {{totalTime}}
+            </span>&nbsp;&nbsp;Min.</strong>
+                
+            </ul>
           </main>
           <!-- End main-->
         </div>
@@ -45,9 +47,10 @@
 </template>
 
 <script>
+import { ref, computed, watch } from 'vue';
 import VueTimepicker from 'vue3-timepicker/src/VueTimepicker.vue'
 import Header from '../Movies/Header.vue'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
     name: 'Movies',
@@ -55,77 +58,163 @@ export default {
       VueTimepicker,
       Header
     },
-    created: function () {
-      this.moment = moment;
-    },
     data() {
       return {
-          toggleLogFormData: false,
-          isLogDataForm: false,
-          work: [],
-          passedIdToForm: '',
-          timeEntries: []
-        }
+        isLogDataForm: false,
+        passedIdToForm: '',
+        // hoursForTask: ''
+      }
     },
     methods: {
       showLogDataForm(isLogDataForm) {
         this.isLogDataForm = isLogDataForm.status
         this.passedIdToForm = isLogDataForm.id
-      },
-      addProjectChild(value) {
-        this.work = value
-      },
-      removeItem(item) {
-        console.log('Delete', item, )
-
-        // this.work.splice(index, 1);
-        // if (confirm('Sure to delete')) {
-        //     this.work = this.work.filter((item) => item.id != selData.id)
-        //     this.$toast.open({
-        //         message: "Deleted Successfully",
-        //         type: "warning",
-        //         duration: 5000,
-        //         dismissible: true
-        //     })
-        // }
-        // console.log('Final Tasks: ', this.work)
-      },
-      saveTimeSpend(id) {
-        if(this.work) {
-          let itemInTable = this.work.filter(item => item.id === id)
-          // console.log('Tasks is: ', this.work, 'Tasks length: ', this.work.length, "Selected Id: ", id, 'Selected Hours: ', this.hoursForTask.HH , 'Selected Minutes: ', this.hoursForTask.mm)
-          // console.log('This to be updated only: ', itemInTable[0].hours)
-          itemInTable[0].hours.hh = this.hoursForTask.HH
-          itemInTable[0].hours.mm = this.hoursForTask.mm
-        }
-        // console.log('After Saved: ', this.work)
-      },
+      }
     },
-    computed: {
-      totalTime() {
-        // let totalTime = 0
-        // var timeInMinutes = ''
+    setup() {
+      const tasks = ref([]);
+      let counter = 0
+      const hoursForTask = ref("")
+      const invalidInput = ref(false)
 
-        let timeEntries = this.work.filter(item => {
-          console.log('computed: ', item.hours)
+      const filteredTasks = computed(function() {
+        return tasks.value.filter(
+          (task) => !task.text.includes("Bappa") && !task.text.includes("Dey")
+        );
+      });
+
+      let totalTime = computed(function() {
+        let logData = filteredTasks.value.filter(item => {
+          return item.hours
         })
 
-        // let timeEntries = this.timeEntries;
+        return logData
+      })
 
-        // timeEntries.filter(item => {
-        //   timeEntries = item.duration
-
-        //   timeInMinutes = convertH2M(timeEntries);
-        // })
-
-        // function convertH2M(timeEntries){
-        //   var timeParts = timeEntries.toString().split(":");
-        //   return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
-        // }
-
-        return timeEntries;
+      function addTask(text) {
+        const newTask = {
+            // id: new Date().toISOString(),
+            id: ++counter,
+            text: text,
+            hours: {
+              hh: '00',
+              mm: '00'
+            }
+        };
+        tasks.value.push(newTask);
       }
-    }
+
+      watch(invalidInput, function (val) {
+        if (val) {
+          console.log("Analytics: Invalid Input");
+        }
+      });
+
+      function saveTimeSpend(id) {
+        invalidInput.value = false;
+
+        if(hoursForTask.value == '') {
+          invalidInput.value = true;
+          return;
+        }
+
+        filteredTasks.value.filter(item => {
+          if(item.id == id) {
+            let hours = hoursForTask.value.split(':')
+            
+            item.hours.hh = hours[0]
+            item.hours.mm = hours[1]
+          }
+        })
+
+        filteredTasks.value.filter(item => {
+          let hours = item.hours.hh + ':' + item.hours.mm
+          let timeInMinutes = convertH2M(hours);
+          return timeInMinutes
+        })
+
+        function convertH2M(timeEntries){
+          var timeParts = timeEntries.toString().split(":");
+          let total = totalTime.value += Number(timeParts[0]) * 60 + Number(timeParts[1])
+          console.log(total)
+          return total;
+        }
+      }
+
+      return {
+        filteredTasks,
+        hoursForTask,
+        totalTime,
+        addTask,
+        saveTimeSpend
+      }
+    },
+
+    // created: function () {
+    //   this.moment = moment;
+    // },
+    // data() {
+    //   return {
+    //       toggleLogFormData: false,
+    //       isLogDataForm: false,
+    //       work: [],
+    //       passedIdToForm: '',
+    //       timeEntries: []
+    //     }
+    // },
+    // methods: {
+    //   showLogDataForm(isLogDataForm) {
+    //     this.isLogDataForm = isLogDataForm.status
+    //     this.passedIdToForm = isLogDataForm.id
+    //   },
+    //   addProjectChild(value) {
+    //     this.work = value
+    //   },
+    //   removeItem(item) {
+    //     this.work.splice(index, 1);
+    //     if (confirm('Sure to delete')) {
+    //         this.work = this.work.filter((item) => item.id != selData.id)
+    //         this.$toast.open({
+    //             message: "Deleted Successfully",
+    //             type: "warning",
+    //             duration: 5000,
+    //             dismissible: true
+    //         })
+    //     }
+    //   },
+    //   saveTimeSpend(id) {
+    //     if(this.work) {
+    //       let itemInTable = this.work.filter(item => item.id === id)
+    //       itemInTable[0].hours.hh = this.hoursForTask.HH
+    //       itemInTable[0].hours.mm = this.hoursForTask.mm
+    //     }
+    //   },
+    // },
+    // computed: {
+    //   totalTime() {
+    //     let totalTime = 0
+    //     var timeInMinutes = ''
+
+    //     let timeEntries = this.work.filter(item => {
+    //       console.log('computed: ', item.hours)
+    //     })
+
+    //     let timeEntries = this.timeEntries;
+
+    //     timeEntries.filter(item => {
+    //       timeEntries = item.duration
+
+    //       timeInMinutes = convertH2M(timeEntries);
+    //     })
+
+    //     function convertH2M(timeEntries){
+    //       var timeParts = timeEntries.toString().split(":");
+    //       return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
+    //     }
+
+    //     return timeEntries;
+    //   }
+    // }
 }
 </script>
 
