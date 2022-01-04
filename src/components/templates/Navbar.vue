@@ -9,12 +9,15 @@
                 <div>
                     <router-link to="/budget">Budget</router-link>
                 </div>
+                <div>
+                    <router-link to="/axios">Daily Tasks</router-link>
+                </div>
                 <div class="hidden">
                     <router-link to="/tests">Test</router-link>
                 </div>
-                <div>
+                <!-- <div>
                     <router-link to="/about">About</router-link>
-                </div>
+                </div> -->
                 <div>
                     <router-link to="/shop">Shop</router-link>
                 </div>
@@ -28,16 +31,16 @@
                 <div class="hidden">
                     <a href="/contact-us">Contact Us</a>
                 </div>
-                <div>
+                <!-- <div>
                     <router-link to="/login">Login</router-link>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                     <a href="/home">Tests</a>
                     <div>
                         <router-link to="/axios">Daily Tasks</router-link>
                         <router-link to="/tests">Test</router-link>
                     </div>
-                </div>
+                </div> -->
             </nav>
             <div class="black"></div>
         </header>
