@@ -22,7 +22,7 @@
             </div>
             <span>total time:</span>
             <strong><span class='text-primary'>
-              {{totalTime}}
+              {{totalTimeSpend}}
             </span>&nbsp;&nbsp;Min.</strong>
                 
             </ul>
@@ -76,20 +76,39 @@ export default {
       let counter = 0
       const hoursForTask = ref("")
       const invalidInput = ref(false)
+      const totalTimeSpend = ref(0)
 
-      const filteredTasks = computed(function() {
+      let filteredTasks = computed(function() {
         return tasks.value.filter(
           (task) => !task.text.includes("Bappa") && !task.text.includes("Dey")
         );
       });
 
-      let totalTime = computed(function() {
-        let logData = filteredTasks.value.filter(item => {
-          return item.hours
-        })
+      // let totalTime = computed(function() {
+      //   let timeHours = filteredTasks.value.filter(
+      //     (item) => item.hours
+      //   );
 
-        return logData
-      })
+      //   return timeHours
+      // });
+
+      // let totalTime = computed(function() {
+      //   // let logData = filteredTasks.value.filter(item => {
+      //   //   return item.id
+      //   // })
+
+      //   return logData
+      // })
+
+
+
+      function removeItem(delItem) {
+      // filteredTasks.value.splice(index, 1);
+      if (confirm('Sure to delete')) {
+        console.log(filteredTasks.value, delItem)
+          return filteredTasks.value.filter((item) => item.id != delItem)
+        }
+      }
 
       function addTask(text) {
         const newTask = {
@@ -124,29 +143,28 @@ export default {
             
             item.hours.hh = hours[0]
             item.hours.mm = hours[1]
-          }
-        })
 
-        filteredTasks.value.filter(item => {
-          let hours = item.hours.hh + ':' + item.hours.mm
-          let timeInMinutes = convertH2M(hours);
-          return timeInMinutes
+            let time = item.hours.hh + ':' + item.hours.mm
+            convertH2M(time)
+          }
         })
 
         function convertH2M(timeEntries){
           var timeParts = timeEntries.toString().split(":");
-          let total = totalTime.value += Number(timeParts[0]) * 60 + Number(timeParts[1])
-          console.log(total)
-          return total;
+          totalTimeSpend.value += Number(timeParts[0]) * 60 + Number(timeParts[1])
+          console.log(totalTimeSpend.value)
+          return totalTimeSpend;
         }
       }
 
       return {
         filteredTasks,
         hoursForTask,
-        totalTime,
+        // totalTime,
+        totalTimeSpend,
         addTask,
-        saveTimeSpend
+        saveTimeSpend,
+        removeItem
       }
     },
 
@@ -191,28 +209,31 @@ export default {
     //   },
     // },
     // computed: {
-    //   totalTime() {
-    //     let totalTime = 0
-    //     var timeInMinutes = ''
+      // totalTime() {
 
-    //     let timeEntries = this.work.filter(item => {
-    //       console.log('computed: ', item.hours)
-    //     })
+        // console.log(this.filteredTasks)
 
-    //     let timeEntries = this.timeEntries;
+        // let totalTime = 0
+        // let timeInMinutes = ''
 
-    //     timeEntries.filter(item => {
-    //       timeEntries = item.duration
+        // let timeEntries = this.work.filter(item => {
+        //   console.log('computed: ', item.hours)
+        // })
 
-    //       timeInMinutes = convertH2M(timeEntries);
-    //     })
+        // let timeEntries = this.timeEntries;
 
-    //     function convertH2M(timeEntries){
-    //       var timeParts = timeEntries.toString().split(":");
-    //       return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
-    //     }
+        // timeEntries.filter(item => {
+        //   timeEntries = item.duration
 
-    //     return timeEntries;
+        //   timeInMinutes = convertH2M(timeEntries);
+        // })
+
+        // function convertH2M(timeEntries){
+        //   var timeParts = timeEntries.toString().split(":");
+        //   return totalTime += Number(timeParts[0]) * 60 + Number(timeParts[1]);
+        // }
+
+    //     return 'timeEntries';
     //   }
     // }
 }
