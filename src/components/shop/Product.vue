@@ -40,37 +40,39 @@
         name: 'Product',
         props: ['product'],
         setup(props) {
-            const store = useStore();
+          const store = useStore();
 
-            let cart = computed(function() {
-                return store.state.cart
-            });
+          let cart = computed(function() {
+              return store.state.cart
+          });
 
-             let itemAlreadyInCart = computed(function() {
-                let inCart = false;
+          let itemAlreadyInCart = computed(function() {
+            let inCart = false;
 
-                cart.value.forEach(item => {
-                    if(item.id == props.product.id){
-                        inCart = true;
-                    }
-                });
-
-                return inCart;
-            });
-
-            function addToCart() {
-                if(!itemAlreadyInCart.value) {
-                    store.commit("addCartItem", props.product)
-                } else {
-                    alert('Item already added to cart')
+            if(cart.value) {
+              cart.value.forEach(item => {
+                if(item.id == props.product.id){
+                  inCart = true;
                 }
+              });
             }
 
-            return {
-                cart,
-                itemAlreadyInCart,
-                addToCart
+            return inCart;
+          });
+
+          function addToCart() {
+            if(!itemAlreadyInCart.value) {
+              store.commit("addCartItem", props.product)
+            } else {
+              alert('Item already added to cart')
             }
+          }
+
+          return {
+            cart,
+            itemAlreadyInCart,
+            addToCart
+          }
         }
     }
 </script>

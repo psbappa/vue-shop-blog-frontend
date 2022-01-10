@@ -236,7 +236,7 @@
             <hr> -->
             <div class="products-lists">
               <!-- <pre> {{ JSON.stringify(searchedProducts, null, 2) }}</pre> -->
-              <div class="row" v-if="searchedProducts">
+              <div class="row" v-if="products">
                 <div class="even-header">
                   <h3 class="h3">Upcomming</h3>
                 </div>
@@ -272,110 +272,114 @@
 </template>
 
 <script>
-    import Product from '../../components/shop/Product.vue'
-    import { ref } from 'vue'
-    // import Cart from "../components/Cart.vue";
+  import Product from '../../components/shop/Product.vue'
+  import { ref } from 'vue'
+  import { onMounted } from 'vue'
 
-    import { computed } from 'vue'
-    import { useStore } from 'vuex'
- 
-    export default {
-        name: 'Shop',
-        components: {
-          Product
-        },
-        data() {
-          return {
-            filters: ["Most Popular","Price [Lowest to Highest]", "Price [Highest to Lowest]", "Name [A to Z]", "Name [Z to A]", "By Date(Newest)", "By Date(Oldest)"],
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
+
+  export default {
+      name: 'Shop',
+      components: {
+        Product
+      },
+      data() {
+        return {
+          filters: ["Most Popular","Price [Lowest to Highest]", "Price [Highest to Lowest]", "Name [A to Z]", "Name [Z to A]", "By Date(Newest)", "By Date(Oldest)"],
+        }
+      },
+      methods: {
+        change: function(par) {
+          console.log('par', par)
+          switch(par) {
+            case "Price [Lowest to Highest]":
+              return this.sortByPriceLowToHigh();
+            case "Price [Highest to Lowest]":
+              return this.sortByPriceHighToLow();
+            case "Name [A to Z]":
+              return this.sortAlpha();
+            case "Name [Z to A]":
+              return this.sortAlphaZ();
           }
         },
-        methods: {
-          change: function(par) {
-            console.log('par', par)
-            switch(par) {
-              case "Price [Lowest to Highest]":
-                return this.sortByPriceLowToHigh();
-              case "Price [Highest to Lowest]":
-                return this.sortByPriceHighToLow();
-              case "Name [A to Z]":
-                return this.sortAlpha();
-              case "Name [Z to A]":
-                return this.sortAlphaZ();
+
+        sortByPriceLowToHigh: function() {
+          this.products.sort(function(a, b) {
+            console.log(a.price + '-' + b.price)
+            return a.price - b.price;
+          })
+        },
+        sortByPriceHighToLow: function() {
+          this.products.sort(function(a, b) {
+            console.log(a.price + '-' + b.price)
+            return b.price - a.price;
+          })
+        },
+        sortAlpha: function() {
+          this.products.sort(function(a, b) {
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
+            if (x < y) {
+              return -1;
             }
-          },
-
-          sortByPriceLowToHigh: function() {
-            this.products.sort(function(a, b) {
-              console.log(a.price + '-' + b.price)
-              return a.price - b.price;
-            })
-          },
-          sortByPriceHighToLow: function() {
-            this.products.sort(function(a, b) {
-              console.log(a.price + '-' + b.price)
-              return b.price - a.price;
-            })
-          },
-          sortAlpha: function() {
-            this.products.sort(function(a, b) {
-              var x = a.name.toLowerCase();
-              var y = b.name.toLowerCase();
-              if (x < y) {
-                return -1;
-              }
-              if (x > y) {
-                return 1;
-              }
-              return 0;
-            });
-          },
-          sortAlphaZ: function() {
-            this.products.sort(function(a, b) {
-              var x = a.name.toLowerCase();
-              var y = b.name.toLowerCase();
-              if (y < x) {
-                return -1;
-              }
-              if (y > x) {
-                return 1;
-              }
-              return 0;
-            });
-          },
-        },
-        setup() {
-          const store = useStore();
-          const searchQuery = ref("");
-          
-          let products = computed(function () {
-            return store.state.products
-            // return store.state.products.filter(item => {
-            //   return item.name.includes(this.search.toLowerCase())
-            // })
-          })
-
-          let cart = computed(function() {
-            return store.state.cart
-          })
-
-          const searchedProducts = computed(() => {
-              return products.value.filter((product) => {
-                return (
-                  product.name
-                    .toLowerCase()
-                    .indexOf(searchQuery.value.toLowerCase()) != -1
-                );
-              });
+            if (x > y) {
+              return 1;
+            }
+            return 0;
           });
-
-          return {
-            products,
-            cart,
-            searchedProducts,
-            searchQuery
-          }
         },
-    }
+        sortAlphaZ: function() {
+          this.products.sort(function(a, b) {
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
+            if (y < x) {
+              return -1;
+            }
+            if (y > x) {
+              return 1;
+            }
+            return 0;
+          });
+        },
+      },
+      setup() {
+        const store = useStore();
+        const searchQuery = ref("");
+        const totalProducts = ref('0')
+        
+        let products = computed(function () {
+          return store.state.products
+        })
+
+        let cart = computed(function() {
+          return store.state.cart
+        })
+
+        const searchedProducts = computed(() => {
+            return products.value.filter((product) => {
+              return (
+                product.name
+                  .toLowerCase()
+                  .indexOf(searchQuery.value.toLowerCase()) != -1
+              );
+            });
+        });
+
+        onMounted(() => {
+          store.dispatch('GET_PRODUCTS');
+          totalProducts.value = store.state.products.length
+          // console.log(totalProducts)
+        })
+
+        return {
+          products,
+          cart,
+          searchedProducts,
+          searchQuery
+        }
+      },
+  }
 </script>
 
 <style scoped>

@@ -77,7 +77,6 @@
         },
         setup(){
             const store = useStore();
-            console.log(store.state.cart.length)
             let cart = computed(function () {
                 return store.state.cart
             });

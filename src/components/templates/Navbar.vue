@@ -21,6 +21,9 @@
                 <div>
                     <router-link to="/shop">Shop</router-link>
                 </div>
+                <div>
+                    <router-link to="/admin-shop">Admin</router-link>
+                </div>
                 <div class="hidden">
                     <a href="/home">Our Projects</a>
                     <div>
