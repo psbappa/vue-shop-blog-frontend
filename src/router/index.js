@@ -4,6 +4,7 @@ import BudgetPlanner from '../components/test/BudgetPlanner/BudgetPlanner'
 import Test from '../components/test/ParentTest'
 import Movies from '../components/test/Movies/Movies.vue'
 import Shop from '../views/shop/Shop.vue'
+import Admin from '../components/shop/Admin/Admin.vue'
 import Cart from '../components/shop/Cart.vue'
 import Login from '../components/accounts/Login.vue'
 import Registration from '../components/accounts/Registration.vue'
@@ -55,6 +56,11 @@ const routes = [
     path: "/registration",
     name: "Registration",
     component: Registration,
+  },
+  {
+    path: "/admin-shop",
+    name: "Admin",
+    component: Admin,
   },
   { path: '/:pathMatch(.*)*', component: PathNotFound },
 ];
