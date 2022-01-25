@@ -6,7 +6,7 @@
             </div>
             <i class="material-icons">menu</i>
             <nav>
-                <div>
+                <!-- <div>
                     <router-link to="/budget">Budget</router-link>
                 </div>
                 <div>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="hidden">
                     <router-link to="/tests">Test</router-link>
-                </div>
+                </div> -->
                 <!-- <div>
                     <router-link to="/about">About</router-link>
                 </div> -->
@@ -22,7 +22,8 @@
                     <router-link to="/shop">Shop</router-link>
                 </div>
                 <div>
-                    <router-link to="/admin-shop">Admin</router-link>
+                    <router-link to="/cart">Cart <span class="badge badge-primary badge-pill" style="background: #5f9ea0;">{{ this.cart.length }}</span></router-link>&nbsp;&nbsp;
+                    
                 </div>
                 <div class="hidden">
                     <a href="/home">Our Projects</a>
@@ -53,8 +54,23 @@
 </template>
 
 <script>
+    import { useStore } from 'vuex'
+    import { computed } from 'vue'
+
     export default {
-        name: 'Navbar'
+        name: 'Navbar',
+        setup() {
+            console.log('setup')
+            const store = useStore();
+
+            let cart = computed(function() {
+                return store.state.cart
+            })
+
+            return {
+                cart
+            }
+        },
     }
 </script>
 

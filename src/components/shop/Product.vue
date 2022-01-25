@@ -2,7 +2,10 @@
     <div class="col-md-3 col-sm-6">
         <div class="product-grid6">
             <div class="product-image6">
-                <a href="#"> <img class="pic-1" src="https://picsum.photos/200/200"> </a>
+              <!-- <pre> {{ JSON.stringify(product, null, 2) }}</pre> -->
+                <router-link :to="{ name: 'ProductView', params: { id: product.id } }" tag="button">
+                  <img class="pic-1" src="https://picsum.photos/200/200">
+                </router-link>
             </div>
             <div class="product-content">
                 <h3 class="title"><a href="#">{{ product.name }}</a></h3>

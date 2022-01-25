@@ -4,6 +4,7 @@ import BudgetPlanner from '../components/test/BudgetPlanner/BudgetPlanner'
 import Test from '../components/test/ParentTest'
 import Movies from '../components/test/Movies/Movies.vue'
 import Shop from '../views/shop/Shop.vue'
+import ProductView from '../components/shop/ProductView.vue'
 import Admin from '../components/shop/Admin/Admin.vue'
 import Cart from '../components/shop/Cart.vue'
 import Login from '../components/accounts/Login.vue'
@@ -41,6 +42,11 @@ const routes = [
     path: "/shop",
     name: "Shop",
     component: Shop,
+  },
+  {
+    path: "/product/:id",
+    name: "ProductView",
+    component: ProductView,
   },
   {
     path: "/cart",
